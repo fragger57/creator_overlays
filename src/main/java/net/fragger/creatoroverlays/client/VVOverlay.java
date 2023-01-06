@@ -9,7 +9,7 @@ import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 
-import static net.fragger.creatoroverlays.event.KeyInputHandler.*;
+import static net.fragger.creatoroverlays.client.RenderHandler.*;
 
 public class VVOverlay implements HudRenderCallback {
     //blank vertical video
@@ -37,57 +37,57 @@ public class VVOverlay implements HudRenderCallback {
     private static final Identifier VV_OVERLAY_Red_GR_270 = new Identifier(creatoroverlays.MOD_ID, "textures/overlays/vertical_video/golden_ratio/vv_overlay_red_gr_270.png");
 
     public void onHudRender(MatrixStack matrixStack, float tickDelta) {
-        if (isVVRendered == true) {
+        if (isVVRendered) {
             //renders vv overlay normally
-            if (isVVRO3Rendered == false & isVVGRRendered == false) {
-                if (cocolor == 0) {
+            if (!isRO3VV & !isGRVV) {
+                if (color == 0) {
                     this.render(matrixStack, VV_Overlay);
-                } else if (cocolor == 1) {
+                } else if (color == 1) {
                     this.render(matrixStack, VV_Overlay_White);
-                } else if (cocolor == 2){
+                } else if (color == 2){
                     this.render(matrixStack, VV_Overlay_Red);
                 }
             }
             //renders vv overlay with ro3 overlay
-            if (isVVRO3Rendered == true) {
-                if (cocolor == 0) {
+            if (isRO3VV) {
+                if (color == 0) {
                     this.render(matrixStack, VV_OVERLAY_RO3);
-                } else if (cocolor == 1) {
+                } else if (color == 1) {
                     this.render(matrixStack, VV_Overlay_White_RO3);
-                } else if (cocolor == 2) {
+                } else if (color == 2) {
                     this.render(matrixStack, VV_Overlay_Red_RO3);
                 }
             }
             //renders vv overlay with gr overlay
-            if (isVVGRRendered == true) {
-                if (cocolor == 0) {
-                    if(coroation == 0) {
+            if (isGRVV) {
+                if (color == 0) {
+                    if(rotation == 0) {
                         this.render(matrixStack, VV_OVERLAY_GR);
-                    } else if (coroation == 90) {
+                    } else if (rotation == 90) {
                         this.render(matrixStack, VV_OVERLAY_GR_90);
-                    } else if (coroation == 180) {
+                    } else if (rotation == 180) {
                         this.render(matrixStack, VV_OVERLAY_GR_180);
-                    } else if (coroation == 270) {
+                    } else if (rotation == 270) {
                         this.render(matrixStack, VV_OVERLAY_GR_270);
                     }
-                } else if (cocolor == 1) {
-                    if(coroation == 0) {
+                } else if (color == 1) {
+                    if(rotation == 0) {
                         this.render(matrixStack, VV_OVERLAY_White_GR);
-                    } else if (coroation == 90) {
+                    } else if (rotation == 90) {
                         this.render(matrixStack, VV_OVERLAY_White_GR_90);
-                    } else if (coroation == 180) {
+                    } else if (rotation == 180) {
                         this.render(matrixStack, VV_OVERLAY_White_GR_180);
-                    } else if (coroation == 270) {
+                    } else if (rotation == 270) {
                         this.render(matrixStack, VV_OVERLAY_White_GR_270);
                     }
-                } else if (cocolor == 2) {
-                    if (coroation == 0) {
+                } else if (color == 2) {
+                    if (rotation == 0) {
                         this.render(matrixStack, VV_OVERLAY_Red_GR);
-                    } else if (coroation == 90) {
+                    } else if (rotation == 90) {
                         this.render(matrixStack, VV_OVERLAY_Red_GR_90);
-                    } else if (coroation == 180) {
+                    } else if (rotation == 180) {
                         this.render(matrixStack, VV_OVERLAY_Red_GR_180);
-                    } else if (coroation == 270) {
+                    } else if (rotation == 270) {
                         this.render(matrixStack, VV_OVERLAY_Red_GR_270);
                     }
                 }

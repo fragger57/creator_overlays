@@ -8,5 +8,6 @@ public class creatoroverlaysClient implements ClientModInitializer {
     public void onInitializeClient() {
         //HudRenderCallback.EVENT.register(new RO3Overlay());
         KeyInputHandler.register();
+
     }
 }

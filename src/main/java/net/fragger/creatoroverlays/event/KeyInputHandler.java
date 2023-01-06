@@ -10,6 +10,7 @@ import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import org.lwjgl.glfw.GLFW;
 
+import static net.fragger.creatoroverlays.client.RenderHandler.*;
 public class KeyInputHandler {
     public static final String KEY_CATEGORY_CREATOROVERLAYS = "key.category.creatoroverlays.creatoroverlays";
     public static final String KEY_DISPLAY_RO3OVERLAY = "key.creatoroverlays.display_ro3overlay";
@@ -27,146 +28,84 @@ public class KeyInputHandler {
     public static KeyBinding corotateupKey;
     public static KeyBinding corotatedownKey;
 
-    public static boolean isRO3Rendered = false;
-    public static boolean isVVRO3Rendered = false;
-    public static boolean isGRRendered = false;
-    public static boolean isVVGRRendered = false;
-    public static boolean isVVRendered = false;
-    private static boolean isRendered = false;
-    public static int cocolor = 0;
-    public static int coroation = 0;
-
     public static void registerKeyInputs(){
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            //toggles RO3 overlay on and off
+            //Handles RO3 Overlay Key Press
             if (ro3displayKey.wasPressed()) {
-                if (isVVRendered == false) {
-                    if (isGRRendered == true) {
-                        isGRRendered = false;
-                        isRendered = false;
-                        HudRenderCallback.EVENT.register(new GROverlay());
-                    }
-                    if (isRO3Rendered == false) {
-                        isRO3Rendered = true;
-                        isRendered = true;
-                    } else {
-                        isRO3Rendered = false;
-                        isRendered = false;
-                    }
-                    HudRenderCallback.EVENT.register(new RO3Overlay());
+                if (isGRRendered){
+                    updateGRStatus();
+                    HudRenderCallback.EVENT.register(new GROverlay());
+                }
+                if(isVVRendered){
+                    updateRO3Status();
+                    HudRenderCallback.EVENT.register(new VVOverlay());
                 } else {
-                    if (isVVGRRendered == true) {
-                        isVVGRRendered = false;
-                    }
-                    if (isVVRO3Rendered == false) {
-                        isVVRO3Rendered = true;
-                    } else {
-                        isVVRO3Rendered = false;
-                    }
-                     HudRenderCallback.EVENT.register(new VVOverlay());
+                    updateRO3Status();
+                    HudRenderCallback.EVENT.register(new RO3Overlay());
                 }
             }
-                //toggles Golden Ratio overlay on and off
+            //Handles Golden Ratio Key Press
             if (grdisplayKey.wasPressed()) {
-                if (isVVRendered == false) {
-                    if (isRO3Rendered == true) {
-                        isRO3Rendered = false;
-                        isRendered = false;
+                if (isRO3Rendered){
+                    updateRO3Status();
+                    HudRenderCallback.EVENT.register(new RO3Overlay());
+                }
+                if (isVVRendered) {
+                    updateGRStatus();
+                    HudRenderCallback.EVENT.register(new GROverlay());
+                } else {
+                    updateGRStatus();
+                    HudRenderCallback.EVENT.register(new GROverlay());
+                }
+            }
+            //Handles Vertical Video Key Press
+            if (vvdisplayKey.wasPressed()) {
+                if (isVVRendered) {
+                    updateVVStatus();
+                    HudRenderCallback.EVENT.register(new VVOverlay());
+                    if (isRO3Rendered) {
                         HudRenderCallback.EVENT.register(new RO3Overlay());
                     }
-                    if (isGRRendered == false) {
-                        isGRRendered = true;
-                        isRendered = true;
-                    } else {
-                        isGRRendered = false;
-                        isRendered = false;
+                    if (isGRRendered) {
+                        HudRenderCallback.EVENT.register(new GROverlay());
                     }
-                    HudRenderCallback.EVENT.register(new GROverlay());
                 } else {
-                    if (isVVRO3Rendered == true) {
-                        isVVRO3Rendered = false;
-                    }
-                    if (isVVGRRendered == false) {
-                        isVVGRRendered = true;
-                    } else {
-                        isVVGRRendered = false;
-                    }
+                    updateVVStatus();
+                    HudRenderCallback.EVENT.register(new RO3Overlay());
+                    HudRenderCallback.EVENT.register(new GROverlay());
                     HudRenderCallback.EVENT.register(new VVOverlay());
                 }
             }
-            //toggles Vertical Video overlay on and off
-            if (vvdisplayKey.wasPressed()) {
-                // when vv overlay is turned on
-                if (isRO3Rendered == true) {
-                    isRO3Rendered = false;
-                    isVVRO3Rendered = true;
-                    HudRenderCallback.EVENT.register(new RO3Overlay());
+            //Cycles Through Colors
+            if (cocolorKey.wasPressed()) {
+                if (!isVVRendered) {
+                    //cycles through colors of RO3 overlay
+                    if (isRO3Rendered) {
+                        colorCycle();
+                        HudRenderCallback.EVENT.register(new RO3Overlay());
+                    }
+                    //cycles through colors of GR overlay
+                    if (isGRRendered) {
+                        colorCycle();
+                        HudRenderCallback.EVENT.register(new RO3Overlay());
+                    }
                 }
-                //when vv overlay is turned off
-                if (isVVRendered == true & isVVRO3Rendered == true) {
-                    isRO3Rendered = true;
-                    isVVRO3Rendered = false;
-                    HudRenderCallback.EVENT.register(new RO3Overlay());
-                }
-                //when vv overlay is turned on
-                if (isGRRendered == true) {
-                    isGRRendered = false;
-                    isVVGRRendered = true;
-                    HudRenderCallback.EVENT.register(new GROverlay());
-                }
-                //when vv overlay is turned off
-                if (isVVRendered == true & isVVGRRendered == true) {
-                    isGRRendered = true;
-                    isVVGRRendered = false;
-                    HudRenderCallback.EVENT.register(new GROverlay());
-                }
-                if (isVVRendered == false) {
-                    isVVRendered = true;
-                    isRendered = true;
-                } else {
-                    isVVRendered = false;
-                    isRendered = false;
-                }
-                HudRenderCallback.EVENT.register(new VVOverlay());
-            }
-            //cycles through colors
-            if(cocolorKey.wasPressed()) {
-                //cycles through colors of RO3 overlay
-                if (isRO3Rendered == true) {
-                    colorCycle();
-                    HudRenderCallback.EVENT.register(new RO3Overlay());
-                }
-                //cycles through colors of GR overlay
-                if (isGRRendered == true) {
-                    colorCycle();
-                    HudRenderCallback.EVENT.register(new GROverlay());
-                }
-                // cycles through colors of VV overlay
-                if (isVVRendered == true) {
+                //cycles through colors of VV overlay
+                if (isVVRendered) {
                     colorCycle();
                     HudRenderCallback.EVENT.register(new VVOverlay());
                 }
             }
-            //cycles up through rotations
+            //Cycles Rotations Up
             if (corotateupKey.wasPressed()) {
-                if (isGRRendered == true) {
-                    rotationCycleUp();
-                    HudRenderCallback.EVENT.register(new GROverlay());
-                }
-                if (isVVGRRendered == true) {
-                    rotationCycleUp();
-                    HudRenderCallback.EVENT.register(new VVOverlay());
+                if (isGRRendered || isGRVV) {
+                    rotateUp();
                 }
             }
-            //cycles down through rotations
+            //Cycles Rotations Down
             if (corotatedownKey.wasPressed()) {
-                if (isGRRendered == true) {
-                    rotationCycleDown();
-                    HudRenderCallback.EVENT.register(new GROverlay());
-                }
-                if (isVVGRRendered == true) {
-                    rotationCycleDown();
-                    HudRenderCallback.EVENT.register(new VVOverlay());
+                if (isGRRendered || isGRVV) {
+                    rotateDown();
                 }
             }
         });
@@ -215,39 +154,5 @@ public class KeyInputHandler {
         ));
 
         registerKeyInputs();
-    }
-    private static void colorCycle(){
-        //0 is black, 1 is white, and 2 is red
-        if (cocolor == 0) {
-            cocolor = 1;
-        } else if (cocolor == 1) {
-            cocolor = 2;
-        } else {
-            cocolor = 0;
-        }
-    }
-    private static void rotationCycleUp(){
-        //cycles rotation up
-        if (coroation == 0) {
-            coroation = 90;
-        } else if (coroation == 90) {
-            coroation = 180;
-        } else if (coroation == 180) {
-            coroation = 270;
-        } else {
-            coroation = 0;
-        }
-    }
-    private static void rotationCycleDown(){
-        //cycles rotation down
-        if (coroation == 180) {
-            coroation = 90;
-        } else if (coroation == 270) {
-            coroation = 180;
-        } else if (coroation == 0) {
-            coroation = 270;
-        } else {
-            coroation = 0;
-        }
     }
 }
