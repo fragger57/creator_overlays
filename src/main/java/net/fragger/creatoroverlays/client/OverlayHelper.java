@@ -12,7 +12,6 @@ import static net.fragger.creatoroverlays.event.KeyInputHandler.*;
 
 public abstract class OverlayHelper {
 
-   public boolean isRendered = false;
    public static int color = 0;
    public static int rotation = 0;
 
@@ -42,6 +41,8 @@ public abstract class OverlayHelper {
        RenderSystem.setShaderTexture(0, texture);
        DrawableHelper.drawTexture(matrixStack, x, y, 0, 0, width, height, width, height);
    }
+
+   //0 is black, 1 is white, and 2 is red
    public static void colorCycle() {
        if (color == 0) {
            color = 1;
