@@ -10,7 +10,10 @@ import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import org.lwjgl.glfw.GLFW;
 
-import static net.fragger.creatoroverlays.client.RenderHandler.*;
+import static net.fragger.creatoroverlays.client.OverlayHelper.*;
+import static net.fragger.creatoroverlays.client.VVOverlay.isGRVV;
+import static net.fragger.creatoroverlays.client.VVOverlay.isRO3VV;
+
 public class KeyInputHandler {
     public static final String KEY_CATEGORY_CREATOROVERLAYS = "key.category.creatoroverlays.creatoroverlays";
     public static final String KEY_DISPLAY_RO3OVERLAY = "key.creatoroverlays.display_ro3overlay";
@@ -28,84 +31,56 @@ public class KeyInputHandler {
     public static KeyBinding corotateupKey;
     public static KeyBinding corotatedownKey;
 
+    public static RO3Overlay ro3Overlay = new RO3Overlay();
+    public static GROverlay grOverlay = new GROverlay();
+    public static VVOverlay vvOverlay = new VVOverlay();
+
     public static void registerKeyInputs(){
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             //Handles RO3 Overlay Key Press
             if (ro3displayKey.wasPressed()) {
-                if (isGRRendered){
-                    updateGRStatus();
-                    HudRenderCallback.EVENT.register(new GROverlay());
-                }
-                if(isVVRendered){
-                    updateRO3Status();
-                    HudRenderCallback.EVENT.register(new VVOverlay());
+                if (!vvOverlay.isRendered()) {
+                    ro3Overlay.updateRenderStatus();
                 } else {
-                    updateRO3Status();
-                    HudRenderCallback.EVENT.register(new RO3Overlay());
+                    if (isGRVV) {
+                        isGRVV = false;
+                    }
+                    isRO3VV = !isRO3VV;
+                    HudRenderCallback.EVENT.register(vvOverlay);
                 }
             }
             //Handles Golden Ratio Key Press
             if (grdisplayKey.wasPressed()) {
-                if (isRO3Rendered){
-                    updateRO3Status();
-                    HudRenderCallback.EVENT.register(new RO3Overlay());
-                }
-                if (isVVRendered) {
-                    updateGRStatus();
-                    HudRenderCallback.EVENT.register(new GROverlay());
+                if (!vvOverlay.isRendered()) {
+                    grOverlay.updateRenderStatus();
                 } else {
-                    updateGRStatus();
-                    HudRenderCallback.EVENT.register(new GROverlay());
+                    if (isRO3VV) {
+                        isRO3VV = false;
+                    }
+                    isGRVV = !isGRVV;
+                    HudRenderCallback.EVENT.register(vvOverlay);
                 }
             }
             //Handles Vertical Video Key Press
             if (vvdisplayKey.wasPressed()) {
-                if (isVVRendered) {
-                    updateVVStatus();
-                    HudRenderCallback.EVENT.register(new VVOverlay());
-                    if (isRO3Rendered) {
-                        HudRenderCallback.EVENT.register(new RO3Overlay());
-                    }
-                    if (isGRRendered) {
-                        HudRenderCallback.EVENT.register(new GROverlay());
-                    }
-                } else {
-                    updateVVStatus();
-                    HudRenderCallback.EVENT.register(new RO3Overlay());
-                    HudRenderCallback.EVENT.register(new GROverlay());
-                    HudRenderCallback.EVENT.register(new VVOverlay());
-                }
+                vvOverlay.updateRenderStatus();
             }
             //Cycles Through Colors
             if (cocolorKey.wasPressed()) {
-                if (!isVVRendered) {
-                    //cycles through colors of RO3 overlay
-                    if (isRO3Rendered) {
-                        colorCycle();
-                        HudRenderCallback.EVENT.register(new RO3Overlay());
-                    }
-                    //cycles through colors of GR overlay
-                    if (isGRRendered) {
-                        colorCycle();
-                        HudRenderCallback.EVENT.register(new RO3Overlay());
-                    }
-                }
-                //cycles through colors of VV overlay
-                if (isVVRendered) {
-                    colorCycle();
-                    HudRenderCallback.EVENT.register(new VVOverlay());
-                }
+                colorCycle();
             }
             //Cycles Rotations Up
             if (corotateupKey.wasPressed()) {
-                if (isGRRendered || isGRVV) {
+                if (grOverlay.isRendered() || isGRVV) {
                     rotateUp();
                 }
             }
             //Cycles Rotations Down
             if (corotatedownKey.wasPressed()) {
-                if (isGRRendered || isGRVV) {
+                if (grOverlay.isRendered() || isGRVV) {
                     rotateDown();
+                    HudRenderCallback.EVENT.register(new GROverlay());
+                    HudRenderCallback.EVENT.register(new VVOverlay());
                 }
             }
         });

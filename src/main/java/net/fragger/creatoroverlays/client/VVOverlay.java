@@ -4,14 +4,12 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fragger.creatoroverlays.creatoroverlays;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawableHelper;
-import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 
-import static net.fragger.creatoroverlays.client.RenderHandler.*;
+import static net.fragger.creatoroverlays.event.KeyInputHandler.*;
 
-public class VVOverlay implements HudRenderCallback {
+public class VVOverlay extends OverlayHelper implements HudRenderCallback {
     //blank vertical video
     private static final Identifier VV_Overlay = new Identifier(creatoroverlays.MOD_ID,"textures/overlays/vertical_video/vv_overlay.png");
     private static final Identifier VV_Overlay_White = new Identifier(creatoroverlays.MOD_ID,"textures/overlays/vertical_video/vv_overlay_white.png");
@@ -36,59 +34,74 @@ public class VVOverlay implements HudRenderCallback {
     private static final Identifier VV_OVERLAY_Red_GR_180 = new Identifier(creatoroverlays.MOD_ID, "textures/overlays/vertical_video/golden_ratio/vv_overlay_red_gr_180.png");
     private static final Identifier VV_OVERLAY_Red_GR_270 = new Identifier(creatoroverlays.MOD_ID, "textures/overlays/vertical_video/golden_ratio/vv_overlay_red_gr_270.png");
 
+    private static boolean isRendered = false;
+    public static boolean isRO3VV = false;
+    public static boolean isGRVV = false;
+
+    private static int x = 0;
+    private static int y = 0;
+    private static int width = 0;
+    private static int height = 0;
+
     public void onHudRender(MatrixStack matrixStack, float tickDelta) {
-        if (isVVRendered) {
+        MinecraftClient client = MinecraftClient.getInstance();
+        if (client != null) {
+            height = client.getWindow().getScaledHeight();
+            width = height / 16 * 9 + 10;
+            x = client.getWindow().getScaledWidth() / 2 - (width / 2);
+        }
+        if (isRendered) {
             //renders vv overlay normally
-            if (!isRO3VV & !isGRVV) {
+            if (!ro3Overlay.isRendered() & !grOverlay.isRendered()) {
                 if (color == 0) {
-                    this.render(matrixStack, VV_Overlay);
+                    render(matrixStack, VV_Overlay, x, y, width, height);
                 } else if (color == 1) {
-                    this.render(matrixStack, VV_Overlay_White);
+                    render(matrixStack, VV_Overlay_White, x, y, width, height);
                 } else if (color == 2){
-                    this.render(matrixStack, VV_Overlay_Red);
+                    render(matrixStack, VV_Overlay_Red, x, y, width, height);
                 }
             }
             //renders vv overlay with ro3 overlay
             if (isRO3VV) {
                 if (color == 0) {
-                    this.render(matrixStack, VV_OVERLAY_RO3);
+                    render(matrixStack, VV_OVERLAY_RO3, x, y, width, height);
                 } else if (color == 1) {
-                    this.render(matrixStack, VV_Overlay_White_RO3);
+                    render(matrixStack, VV_Overlay_White_RO3, x, y, width, height);
                 } else if (color == 2) {
-                    this.render(matrixStack, VV_Overlay_Red_RO3);
+                    render(matrixStack, VV_Overlay_Red_RO3, x, y, width, height);
                 }
             }
             //renders vv overlay with gr overlay
             if (isGRVV) {
                 if (color == 0) {
                     if(rotation == 0) {
-                        this.render(matrixStack, VV_OVERLAY_GR);
+                        render(matrixStack, VV_OVERLAY_GR, x, y, width, height);
                     } else if (rotation == 90) {
-                        this.render(matrixStack, VV_OVERLAY_GR_90);
+                        render(matrixStack, VV_OVERLAY_GR_90, x, y, width, height);
                     } else if (rotation == 180) {
-                        this.render(matrixStack, VV_OVERLAY_GR_180);
+                        render(matrixStack, VV_OVERLAY_GR_180, x, y, width, height);
                     } else if (rotation == 270) {
-                        this.render(matrixStack, VV_OVERLAY_GR_270);
+                        render(matrixStack, VV_OVERLAY_GR_270, x, y, width, height);
                     }
                 } else if (color == 1) {
                     if(rotation == 0) {
-                        this.render(matrixStack, VV_OVERLAY_White_GR);
+                        render(matrixStack, VV_OVERLAY_White_GR, x, y, width, height);
                     } else if (rotation == 90) {
-                        this.render(matrixStack, VV_OVERLAY_White_GR_90);
+                        render(matrixStack, VV_OVERLAY_White_GR_90, x, y, width, height);
                     } else if (rotation == 180) {
-                        this.render(matrixStack, VV_OVERLAY_White_GR_180);
+                        render(matrixStack, VV_OVERLAY_White_GR_180, x, y, width, height);
                     } else if (rotation == 270) {
-                        this.render(matrixStack, VV_OVERLAY_White_GR_270);
+                        render(matrixStack, VV_OVERLAY_White_GR_270, x, y, width, height);
                     }
                 } else if (color == 2) {
                     if (rotation == 0) {
-                        this.render(matrixStack, VV_OVERLAY_Red_GR);
+                        render(matrixStack, VV_OVERLAY_Red_GR, x, y, width, height);
                     } else if (rotation == 90) {
-                        this.render(matrixStack, VV_OVERLAY_Red_GR_90);
+                        render(matrixStack, VV_OVERLAY_Red_GR_90, x, y, width, height);
                     } else if (rotation == 180) {
-                        this.render(matrixStack, VV_OVERLAY_Red_GR_180);
+                        render(matrixStack, VV_OVERLAY_Red_GR_180, x, y, width, height);
                     } else if (rotation == 270) {
-                        this.render(matrixStack, VV_OVERLAY_Red_GR_270);
+                        render(matrixStack, VV_OVERLAY_Red_GR_270, x, y, width, height);
                     }
                 }
             }
@@ -96,22 +109,36 @@ public class VVOverlay implements HudRenderCallback {
             RenderSystem.disableTexture();
         }
     }
-    private void render(MatrixStack matrixStack, Identifier texture){
-        int x = 0;
-        int y = 0;
-        int width = 0;
-        int height = 0;
-        int windowWidth = 0;
-        MinecraftClient client = MinecraftClient.getInstance();
-        if (client != null) {
-            height = client.getWindow().getScaledHeight();
-            width = height / 16 * 9 + 10;
-            windowWidth = client.getWindow().getScaledWidth();
+    public void updateRenderStatus() {
+        if (!isRendered) {
+            if (ro3Overlay.isRendered()) {
+                ro3Overlay.setisRendered(false);
+                isRO3VV = true;
+            }
+            if (grOverlay.isRendered()) {
+                grOverlay.setisRendered(false);
+                isGRVV = true;
+            }
+            isRendered = true;
+        } else {
+            if (isRO3VV) {
+                ro3Overlay.setisRendered(true);
+                isRO3VV = false;
+            }
+            if (isGRVV) {
+                grOverlay.setisRendered(true);
+                isGRVV = false;
+            }
+            isRendered = false;
         }
-        x = windowWidth / 2 - (width / 2);
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.setShaderTexture(0, texture);
-        DrawableHelper.drawTexture(matrixStack, x, y, 0, 0, width, height, width, height);
+        HudRenderCallback.EVENT.register(vvOverlay);
+        HudRenderCallback.EVENT.register(ro3Overlay);
+        HudRenderCallback.EVENT.register(grOverlay);
+    }
+    public boolean isRendered() {
+        return isRendered;
+    }
+    public void setisRendered(boolean Rendered) {
+        isRendered = Rendered;
     }
 }
