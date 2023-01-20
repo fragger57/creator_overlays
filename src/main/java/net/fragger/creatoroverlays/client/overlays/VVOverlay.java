@@ -1,7 +1,8 @@
-package net.fragger.creatoroverlays.client;
+package net.fragger.creatoroverlays.client.overlays;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
+import net.fragger.creatoroverlays.client.OverlayHelper;
 import net.fragger.creatoroverlays.creatoroverlays;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.util.math.MatrixStack;
@@ -131,7 +132,7 @@ public class VVOverlay extends OverlayHelper implements HudRenderCallback {
             }
             isRendered = false;
         }
-        HudRenderCallback.EVENT.register(vvOverlay);
+        HudRenderCallback.EVENT.register(this);
         HudRenderCallback.EVENT.register(ro3Overlay);
         HudRenderCallback.EVENT.register(grOverlay);
     }

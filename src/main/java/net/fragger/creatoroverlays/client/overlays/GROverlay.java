@@ -1,7 +1,8 @@
-package net.fragger.creatoroverlays.client;
+package net.fragger.creatoroverlays.client.overlays;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
+import net.fragger.creatoroverlays.client.OverlayHelper;
 import net.fragger.creatoroverlays.creatoroverlays;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
@@ -70,9 +71,8 @@ public class GROverlay extends OverlayHelper implements HudRenderCallback {
         } else {
             isRendered = false;
         }
-        HudRenderCallback.EVENT.register(grOverlay);
+        HudRenderCallback.EVENT.register(this);
         HudRenderCallback.EVENT.register(ro3Overlay);
-        HudRenderCallback.EVENT.register(vvOverlay);
     }
     public boolean isRendered() {
         return isRendered;

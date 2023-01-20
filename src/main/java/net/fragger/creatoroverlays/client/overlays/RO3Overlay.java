@@ -1,8 +1,10 @@
-package net.fragger.creatoroverlays.client;
+package net.fragger.creatoroverlays.client.overlays;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
+import net.fragger.creatoroverlays.client.OverlayHelper;
 import net.fragger.creatoroverlays.creatoroverlays;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 
@@ -13,8 +15,11 @@ public class RO3Overlay extends OverlayHelper implements HudRenderCallback {
     private static final Identifier RO3_Overlay_White = new Identifier(creatoroverlays.MOD_ID,"textures/overlays/rule_of_thirds/ro3_overlay_white.png");
     private static final Identifier RO3_Overlay_Red = new Identifier(creatoroverlays.MOD_ID,"textures/overlays/rule_of_thirds/ro3_overlay_red.png");
 
+    MinecraftClient client = MinecraftClient.getInstance();
+
     private static boolean isRendered = false;
 
+    @Override
     public void onHudRender(MatrixStack matrixStack, float tickDelta) {
         if (isRendered) {
             if (color == 0) {
@@ -37,9 +42,8 @@ public class RO3Overlay extends OverlayHelper implements HudRenderCallback {
         } else {
             isRendered = false;
         }
-        HudRenderCallback.EVENT.register(ro3Overlay);
+        HudRenderCallback.EVENT.register(this);
         HudRenderCallback.EVENT.register(grOverlay);
-        HudRenderCallback.EVENT.register(vvOverlay);
     }
     public boolean isRendered() {
         return isRendered;
