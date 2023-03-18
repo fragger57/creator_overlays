@@ -1,5 +1,6 @@
 package net.fragger.creatoroverlays.client;
 
+import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fragger.creatoroverlays.client.overlays.TPOverlay;
 
 import static net.fragger.creatoroverlays.client.GUI.TrackingPointsGUI.*;
@@ -78,12 +79,18 @@ public class TPHandler {
             isRendered = true;
         }
     }
-    public void initializeOverlay() {
+    public void initializePosition() {
         tp1.initializeTPOverlay();
         tp2.initializeTPOverlay();
         tp3.initializeTPOverlay();
         tp4.initializeTPOverlay();
         row1.selectOn();
+    }
+    public void initializeOverlay() {
+        HudRenderCallback.EVENT.register(tp1);
+        HudRenderCallback.EVENT.register(tp2);
+        HudRenderCallback.EVENT.register(tp3);
+        HudRenderCallback.EVENT.register(tp4);
     }
     public void moveUp() {
        tp1.moveUp();
@@ -138,25 +145,29 @@ public class TPHandler {
     }
     public void cycleSelectedUp() {
         if (tp1.isSelected()) {
-            tpGUI.updateSelected(2);
+            tpGUI.updateSelected(row2);
         } else if (tp2.isSelected()) {
-            tpGUI.updateSelected(3);
+            tpGUI.updateSelected(row3);
         } else if (tp3.isSelected()) {
-            tpGUI.updateSelected(4);
+            tpGUI.updateSelected(row4);
         } else if (tp4.isSelected()) {
-            tpGUI.updateSelected(1);
+            tpGUI.updateSelected(row1);
+        } else {
+            tpGUI.updateSelected(row1);
         }
     }
 
     public void cycleSelectedDown() {
         if (tp1.isSelected()) {
-            tpGUI.updateSelected(4);
+            tpGUI.updateSelected(row4);
         } else if (tp2.isSelected()) {
-            tpGUI.updateSelected(1);
+            tpGUI.updateSelected(row1);
         } else if (tp3.isSelected()) {
-            tpGUI.updateSelected(2);
+            tpGUI.updateSelected(row2);
         } else if (tp4.isSelected()) {
-            tpGUI.updateSelected(3);
+            tpGUI.updateSelected(row3);
+        } else {
+            tpGUI.updateSelected(row1);
         }
     }
     public void cycleColor() {

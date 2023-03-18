@@ -12,7 +12,6 @@ public class creatoroverlays implements ModInitializer {
 	@Override
 	public void onInitialize() {
 
-
 		LOGGER.info("creatoroverlays successfully initialized!");
 	}
 }

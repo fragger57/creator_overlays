@@ -11,7 +11,6 @@ import net.fragger.creatoroverlays.event.KeyInputHandler;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
-import static net.fragger.creatoroverlays.client.TPHandler.*;
 import static net.fragger.creatoroverlays.event.KeyInputHandler.tpGUI;
 
 
@@ -89,15 +88,7 @@ public class TPGuiSection {
         }
     }
     private void updatedSelected() {
-        if(overlay == tp1) {
-            tpGUI.updateSelected(1);
-        } else if (overlay == tp2) {
-            tpGUI.updateSelected(2);
-        } else if (overlay == tp3) {
-            tpGUI.updateSelected(3);
-        } else if (overlay == tp4) {
-            tpGUI.updateSelected(4);
-        }
+        tpGUI.updateSelected(this);
     }
     public void selectOn() {
         selectTP.setToggle(true);

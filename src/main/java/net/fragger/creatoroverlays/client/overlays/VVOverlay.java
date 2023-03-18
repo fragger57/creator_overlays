@@ -1,16 +1,16 @@
 package net.fragger.creatoroverlays.client.overlays;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
-import net.fragger.creatoroverlays.client.OverlayHelper;
 import net.fragger.creatoroverlays.creatoroverlays;
+import net.fragger.creatoroverlays.util.StaticOverlay;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 
-import static net.fragger.creatoroverlays.event.KeyInputHandler.*;
+import static net.fragger.creatoroverlays.event.KeyInputHandler.grOverlay;
+import static net.fragger.creatoroverlays.event.KeyInputHandler.ro3Overlay;
 
-public class VVOverlay extends OverlayHelper implements HudRenderCallback {
+public class VVOverlay extends StaticOverlay implements HudRenderCallback {
     //blank vertical video
     private static final Identifier VV_Overlay = new Identifier(creatoroverlays.MOD_ID,"textures/overlays/vertical_video/vv_overlay.png");
     private static final Identifier VV_Overlay_White = new Identifier(creatoroverlays.MOD_ID,"textures/overlays/vertical_video/vv_overlay_white.png");
@@ -107,7 +107,7 @@ public class VVOverlay extends OverlayHelper implements HudRenderCallback {
                 }
             }
         } else {
-            RenderSystem.disableTexture();
+            //RenderSystem.disableTexture();
         }
     }
     public void updateRenderStatus() {
@@ -132,9 +132,6 @@ public class VVOverlay extends OverlayHelper implements HudRenderCallback {
             }
             isRendered = false;
         }
-        HudRenderCallback.EVENT.register(this);
-        HudRenderCallback.EVENT.register(ro3Overlay);
-        HudRenderCallback.EVENT.register(grOverlay);
     }
     public boolean isRendered() {
         return isRendered;

@@ -70,26 +70,26 @@ public class TrackingPointsGUI extends LightweightGuiDescription {
         });
 
     }
-    public void updateSelected(int tp) {
-        if (tp == 1) {
+    public void updateSelected(TPGuiSection row) {
+        if (row == row1) {
             row1.selectOn();
 
             row2.selectOff();
             row3.selectOff();
             row4.selectOff();
-        } else if (tp == 2) {
+        } else if (row == row2) {
             row2.selectOn();
 
             row1.selectOff();
             row3.selectOff();
             row4.selectOff();
-        } else if (tp == 3) {
+        } else if (row == row3) {
             row3.selectOn();
 
             row1.selectOff();
             row2.selectOff();
             row4.selectOff();
-        } else if (tp == 4) {
+        } else if (row == row4) {
             row4.selectOn();
 
             row1.selectOff();

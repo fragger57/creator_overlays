@@ -3,9 +3,9 @@ package net.fragger.creatoroverlays.event;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
-import net.fragger.creatoroverlays.client.TPHandler;
 import net.fragger.creatoroverlays.client.GUI.TrackingPointsGUI;
 import net.fragger.creatoroverlays.client.GUI.TrackingPointsScreen;
+import net.fragger.creatoroverlays.client.TPHandler;
 import net.fragger.creatoroverlays.client.overlays.GROverlay;
 import net.fragger.creatoroverlays.client.overlays.RO3Overlay;
 import net.fragger.creatoroverlays.client.overlays.VVOverlay;
@@ -14,7 +14,7 @@ import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import org.lwjgl.glfw.GLFW;
 
-import static net.fragger.creatoroverlays.client.OverlayHelper.*;
+import static net.fragger.creatoroverlays.util.StaticOverlay.*;
 import static net.fragger.creatoroverlays.client.overlays.VVOverlay.isGRVV;
 import static net.fragger.creatoroverlays.client.overlays.VVOverlay.isRO3VV;
 
@@ -45,7 +45,6 @@ public class KeyInputHandler {
     public static KeyBinding tprightKey;
     public static KeyBinding tpleftKey;
     public static KeyBinding modifierKey;
-
 
     public static RO3Overlay ro3Overlay = new RO3Overlay();
     public static GROverlay grOverlay = new GROverlay();
@@ -96,7 +95,7 @@ public class KeyInputHandler {
             if (tpdisplayKey.wasPressed()) {
                 if (num == 0) {
                     num++;
-                    tpOverlay.initializeOverlay();
+                    tpOverlay.initializePosition();
                 }
                 if (modifierKey.isPressed()) {
                     MinecraftClient.getInstance().setScreen(tpScreen);
@@ -111,11 +110,10 @@ public class KeyInputHandler {
              */
             //Cycles Through Colors
             if (cocolorKey.wasPressed()) {
-                if (ro3Overlay.isRendered() || grOverlay.isRendered() || vvOverlay.isRendered()) {
-                    colorCycle();
-                }
                 if (tpOverlay.isRendered()) {
                     tpOverlay.cycleColor();
+                } else if (ro3Overlay.isRendered() || grOverlay.isRendered() || vvOverlay.isRendered()) {
+                    colorCycle();
                 }
             }
             //Cycles Rotations Up
@@ -255,5 +253,11 @@ public class KeyInputHandler {
         ));
 
         registerKeyInputs();
+    }
+    public static void initialize(){
+        HudRenderCallback.EVENT.register(ro3Overlay);
+        HudRenderCallback.EVENT.register(grOverlay);
+        HudRenderCallback.EVENT.register(vvOverlay);
+        tpOverlay.initializeOverlay();
     }
 }

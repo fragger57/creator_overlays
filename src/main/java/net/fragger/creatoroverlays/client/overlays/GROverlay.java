@@ -1,15 +1,14 @@
 package net.fragger.creatoroverlays.client.overlays;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
-import net.fragger.creatoroverlays.client.OverlayHelper;
 import net.fragger.creatoroverlays.creatoroverlays;
+import net.fragger.creatoroverlays.util.StaticOverlay;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 
-import static net.fragger.creatoroverlays.event.KeyInputHandler.*;
+import static net.fragger.creatoroverlays.event.KeyInputHandler.ro3Overlay;
 
-public class GROverlay extends OverlayHelper implements HudRenderCallback {
+public class GROverlay extends StaticOverlay implements HudRenderCallback {
     private static final Identifier GR_Overlay = new Identifier(creatoroverlays.MOD_ID,"textures/overlays/golden_ratio/gr_overlay.png");
     private static final Identifier GR_Overlay_90 = new Identifier(creatoroverlays.MOD_ID,"textures/overlays/golden_ratio/gr_overlay_90.png");
     private static final Identifier GR_Overlay_180 = new Identifier(creatoroverlays.MOD_ID,"textures/overlays/golden_ratio/gr_overlay_180.png");
@@ -59,7 +58,7 @@ public class GROverlay extends OverlayHelper implements HudRenderCallback {
                }
            }
         } else {
-            RenderSystem.disableTexture();
+            //RenderSystem.clear();
         }
     }
     public void updateRenderStatus() {
@@ -71,8 +70,6 @@ public class GROverlay extends OverlayHelper implements HudRenderCallback {
         } else {
             isRendered = false;
         }
-        HudRenderCallback.EVENT.register(this);
-        HudRenderCallback.EVENT.register(ro3Overlay);
     }
     public boolean isRendered() {
         return isRendered;
