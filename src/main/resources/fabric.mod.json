@@ -25,9 +25,6 @@
       "net.fragger.creatoroverlays.creatoroverlaysClient"
     ]
   },
-  "mixins": [
-    "creatoroverlays.mixins.json"
-  ],
 
   "depends": {
     "fabricloader": ">=0.14.0",
