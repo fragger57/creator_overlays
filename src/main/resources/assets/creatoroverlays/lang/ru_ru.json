@@ -1,0 +1,16 @@
+{
+  "key.category.creatoroverlays.creatoroverlays": "Creator Overlays",
+  "key.creatoroverlays.display_ro3overlay": "Переключить сетку «Правило третей»",
+  "key.creatoroverlays.display_groverlay": "Переключить наложение «Золотое сечение»",
+  "key.creatoroverlays.display_vvoverlay": "Переключить наложение «Вертикальное видео»",
+  "key.creatoroverlays.display_tpoverlay": "Переключить наложение «Точки слежения»",
+  "key.creatoroverlays.co_color": "Цвет кругового наложения",
+  "key.creatoroverlays.co_rotateup":  "Выбор следующего кругового наложения",
+  "key.creatoroverlays.co_rotatedown": "Выбор предыдущего кругового наложения",
+  "key.creatoroverlays.tp_up": "Передвинуть точку слежения вверх",
+  "key.creatoroverlays.tp_down": "Передвинуть точку слежения вниз",
+  "key.creatoroverlays.tp_right": "Передвинуть точку слежения вправо",
+  "key.creatoroverlays.tp_left": "Передвинуть точку слежения влево",
+  "key.creatoroverlays.co_modifier": "Ключ модификатора"
+
+}
