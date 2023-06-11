@@ -1,14 +1,13 @@
 package net.fragger.creatoroverlays.client.overlays;
 
-import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fragger.creatoroverlays.creatoroverlays;
 import net.fragger.creatoroverlays.util.StaticOverlay;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.util.Identifier;
 
 import static net.fragger.creatoroverlays.event.KeyInputHandler.ro3Overlay;
 
-public class GROverlay extends StaticOverlay implements HudRenderCallback {
+public class GROverlay extends StaticOverlay {
     private static final Identifier GR_Overlay = new Identifier(creatoroverlays.MOD_ID,"textures/overlays/golden_ratio/gr_overlay.png");
     private static final Identifier GR_Overlay_90 = new Identifier(creatoroverlays.MOD_ID,"textures/overlays/golden_ratio/gr_overlay_90.png");
     private static final Identifier GR_Overlay_180 = new Identifier(creatoroverlays.MOD_ID,"textures/overlays/golden_ratio/gr_overlay_180.png");
@@ -24,41 +23,39 @@ public class GROverlay extends StaticOverlay implements HudRenderCallback {
 
     private static boolean isRendered = false;
 
-    public void onHudRender(MatrixStack matrixStack, float tickDelta) {
+    public void onHudRender(DrawContext drawContext, float tickDelta) {
         if (isRendered) {
            if(color == 0){
                if (rotation == 0) {
-                   render(matrixStack, GR_Overlay);
+                   render(drawContext, GR_Overlay);
                } else if (rotation == 90) {
-                   render(matrixStack, GR_Overlay_90);
+                   render(drawContext, GR_Overlay_90);
                } else if (rotation == 180) {
-                   render(matrixStack, GR_Overlay_180);
+                   render(drawContext, GR_Overlay_180);
                } else {
-                   render(matrixStack, GR_Overlay_270);
+                   render(drawContext, GR_Overlay_270);
                }
            } else if (color == 1) {
                if (rotation == 0) {
-                   render(matrixStack, GR_Overlay_White);
+                   render(drawContext, GR_Overlay_White);
                } else if (rotation == 90) {
-                   render(matrixStack, GR_Overlay_White_90);
+                   render(drawContext, GR_Overlay_White_90);
                } else if (rotation == 180) {
-                   render(matrixStack, GR_Overlay_White_180);
+                   render(drawContext, GR_Overlay_White_180);
                } else {
-                   render(matrixStack, GR_Overlay_White_270);
+                   render(drawContext, GR_Overlay_White_270);
                }
            } else if (color == 2){
                if (rotation == 0) {
-                   render(matrixStack, GR_Overlay_Red);
+                   render(drawContext, GR_Overlay_Red);
                } else if (rotation == 90) {
-                   render(matrixStack, GR_Overlay_Red_90);
+                   render(drawContext, GR_Overlay_Red_90);
                } else if (rotation == 180) {
-                   render(matrixStack, GR_Overlay_Red_180);
+                   render(drawContext, GR_Overlay_Red_180);
                } else {
-                   render(matrixStack, GR_Overlay_Red_270);
+                   render(drawContext, GR_Overlay_Red_270);
                }
            }
-        } else {
-            //RenderSystem.clear();
         }
     }
     public void updateRenderStatus() {

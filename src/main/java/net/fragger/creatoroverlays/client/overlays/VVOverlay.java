@@ -4,7 +4,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fragger.creatoroverlays.creatoroverlays;
 import net.fragger.creatoroverlays.util.StaticOverlay;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.util.Identifier;
 
 import static net.fragger.creatoroverlays.event.KeyInputHandler.grOverlay;
@@ -44,7 +44,7 @@ public class VVOverlay extends StaticOverlay implements HudRenderCallback {
     private static int width = 0;
     private static int height = 0;
 
-    public void onHudRender(MatrixStack matrixStack, float tickDelta) {
+    public void onHudRender(DrawContext drawContext, float tickDelta) {
         MinecraftClient client = MinecraftClient.getInstance();
         if (client != null) {
             height = client.getWindow().getScaledHeight();
@@ -55,59 +55,57 @@ public class VVOverlay extends StaticOverlay implements HudRenderCallback {
             //renders vv overlay normally
             if (!ro3Overlay.isRendered() & !grOverlay.isRendered()) {
                 if (color == 0) {
-                    render(matrixStack, VV_Overlay, x, y, width, height);
+                    render(drawContext, VV_Overlay, x, y, width, height);
                 } else if (color == 1) {
-                    render(matrixStack, VV_Overlay_White, x, y, width, height);
+                    render(drawContext, VV_Overlay_White, x, y, width, height);
                 } else if (color == 2){
-                    render(matrixStack, VV_Overlay_Red, x, y, width, height);
+                    render(drawContext, VV_Overlay_Red, x, y, width, height);
                 }
             }
             //renders vv overlay with ro3 overlay
             if (isRO3VV) {
                 if (color == 0) {
-                    render(matrixStack, VV_OVERLAY_RO3, x, y, width, height);
+                    render(drawContext, VV_OVERLAY_RO3, x, y, width, height);
                 } else if (color == 1) {
-                    render(matrixStack, VV_Overlay_White_RO3, x, y, width, height);
+                    render(drawContext, VV_Overlay_White_RO3, x, y, width, height);
                 } else if (color == 2) {
-                    render(matrixStack, VV_Overlay_Red_RO3, x, y, width, height);
+                    render(drawContext, VV_Overlay_Red_RO3, x, y, width, height);
                 }
             }
             //renders vv overlay with gr overlay
             if (isGRVV) {
                 if (color == 0) {
                     if(rotation == 0) {
-                        render(matrixStack, VV_OVERLAY_GR, x, y, width, height);
+                        render(drawContext, VV_OVERLAY_GR, x, y, width, height);
                     } else if (rotation == 90) {
-                        render(matrixStack, VV_OVERLAY_GR_90, x, y, width, height);
+                        render(drawContext, VV_OVERLAY_GR_90, x, y, width, height);
                     } else if (rotation == 180) {
-                        render(matrixStack, VV_OVERLAY_GR_180, x, y, width, height);
+                        render(drawContext, VV_OVERLAY_GR_180, x, y, width, height);
                     } else if (rotation == 270) {
-                        render(matrixStack, VV_OVERLAY_GR_270, x, y, width, height);
+                        render(drawContext, VV_OVERLAY_GR_270, x, y, width, height);
                     }
                 } else if (color == 1) {
                     if(rotation == 0) {
-                        render(matrixStack, VV_OVERLAY_White_GR, x, y, width, height);
+                        render(drawContext, VV_OVERLAY_White_GR, x, y, width, height);
                     } else if (rotation == 90) {
-                        render(matrixStack, VV_OVERLAY_White_GR_90, x, y, width, height);
+                        render(drawContext, VV_OVERLAY_White_GR_90, x, y, width, height);
                     } else if (rotation == 180) {
-                        render(matrixStack, VV_OVERLAY_White_GR_180, x, y, width, height);
+                        render(drawContext, VV_OVERLAY_White_GR_180, x, y, width, height);
                     } else if (rotation == 270) {
-                        render(matrixStack, VV_OVERLAY_White_GR_270, x, y, width, height);
+                        render(drawContext, VV_OVERLAY_White_GR_270, x, y, width, height);
                     }
                 } else if (color == 2) {
                     if (rotation == 0) {
-                        render(matrixStack, VV_OVERLAY_Red_GR, x, y, width, height);
+                        render(drawContext, VV_OVERLAY_Red_GR, x, y, width, height);
                     } else if (rotation == 90) {
-                        render(matrixStack, VV_OVERLAY_Red_GR_90, x, y, width, height);
+                        render(drawContext, VV_OVERLAY_Red_GR_90, x, y, width, height);
                     } else if (rotation == 180) {
-                        render(matrixStack, VV_OVERLAY_Red_GR_180, x, y, width, height);
+                        render(drawContext, VV_OVERLAY_Red_GR_180, x, y, width, height);
                     } else if (rotation == 270) {
-                        render(matrixStack, VV_OVERLAY_Red_GR_270, x, y, width, height);
+                        render(drawContext, VV_OVERLAY_Red_GR_270, x, y, width, height);
                     }
                 }
             }
-        } else {
-            //RenderSystem.disableTexture();
         }
     }
     public void updateRenderStatus() {

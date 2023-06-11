@@ -2,7 +2,7 @@ package net.fragger.creatoroverlays.client.overlays;
 
 import net.fragger.creatoroverlays.creatoroverlays;
 import net.fragger.creatoroverlays.util.MoveableOverlay;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.util.Identifier;
 
 public class TPOverlay extends MoveableOverlay {
@@ -13,19 +13,19 @@ public class TPOverlay extends MoveableOverlay {
     private static final Identifier TP_Overlay_Blue = new Identifier(creatoroverlays.MOD_ID,"textures/overlays/tracking_point/tp_overlay_blue.png");
     private static final Identifier TP_Overlay_Selected = new Identifier(creatoroverlays.MOD_ID,"textures/overlays/tracking_point/tp_overlay_selected.png");
     @Override
-    public void onHudRender(MatrixStack matrixStack, float tickDelta) {
+    public void onHudRender(DrawContext drawContext, float tickDelta) {
         if(isRendered) {
             if (mColor == 0) {
-                render(matrixStack, TP_Overlay, x, y, width, height);
+                render(drawContext, TP_Overlay, x, y, width, height);
             } else if (mColor == 1) {
-                render(matrixStack, TP_Overlay_White, x, y, width, height);
+                render(drawContext, TP_Overlay_White, x, y, width, height);
             } else if (mColor == 2) {
-                render(matrixStack, TP_Overlay_Red, x, y, width, height);
+                render(drawContext, TP_Overlay_Red, x, y, width, height);
             } else if (mColor == 3) {
-                render(matrixStack, TP_Overlay_Blue, x, y, width, height);
+                render(drawContext, TP_Overlay_Blue, x, y, width, height);
             }
             if (isSelected) {
-                render(matrixStack, TP_Overlay_Selected, x, y, width, height);
+                render(drawContext, TP_Overlay_Selected, x, y, width, height);
             }
         }
     }

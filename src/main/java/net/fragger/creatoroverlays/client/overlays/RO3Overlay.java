@@ -2,7 +2,7 @@ package net.fragger.creatoroverlays.client.overlays;
 
 import net.fragger.creatoroverlays.creatoroverlays;
 import net.fragger.creatoroverlays.util.StaticOverlay;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.util.Identifier;
 
 import static net.fragger.creatoroverlays.event.KeyInputHandler.grOverlay;
@@ -15,17 +15,15 @@ public class RO3Overlay extends StaticOverlay {
     private static boolean isRendered = false;
 
     @Override
-    public void onHudRender(MatrixStack matrixStack, float tickDelta) {
+    public void onHudRender(DrawContext drawContext, float tickDelta) {
         if (isRendered) {
             if (color == 0) {
-                render(matrixStack, RO3_Overlay);
+                render(drawContext, RO3_Overlay);
             } else if (color == 1) {
-                render(matrixStack, RO3_Overlay_White);
+                render(drawContext, RO3_Overlay_White);
             } else if (color == 2) {
-                render(matrixStack, RO3_Overlay_Red);
+                render(drawContext, RO3_Overlay_Red);
             }
-        } else {
-            //RenderSystem.disableTexture();
         }
     }
     public void updateRenderStatus() {
@@ -44,4 +42,5 @@ public class RO3Overlay extends StaticOverlay {
     public void setisRendered(boolean Rendered) {
         isRendered = Rendered;
     }
+
 }

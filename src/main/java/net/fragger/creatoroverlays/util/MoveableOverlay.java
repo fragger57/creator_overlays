@@ -22,7 +22,6 @@ public abstract class MoveableOverlay extends Overlay {
     public void updateColor() {
         if (mColor == 0) {
             mColor = 1;
-
         } else if (mColor == 1) {
             mColor = 2;
         } else if (mColor == 2) {
