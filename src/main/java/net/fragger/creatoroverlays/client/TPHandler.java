@@ -173,12 +173,16 @@ public class TPHandler {
     public void cycleColor() {
         if (tp1.isSelected()) {
             tp1.updateColor();
+            row1.updateColor();
         } else if (tp2.isSelected()) {
             tp2.updateColor();
+            row2.updateColor();
         } else if (tp3.isSelected()) {
             tp3.updateColor();
+            row3.updateColor();
         } else if (tp4.isSelected()) {
             tp4.updateColor();
+            row4.updateColor();
         }
     }
 }

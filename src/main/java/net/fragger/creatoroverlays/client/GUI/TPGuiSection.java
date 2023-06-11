@@ -29,6 +29,7 @@ public class TPGuiSection {
 
     private WToggleButton selectTP = new WToggleButton(SELECT_ON, SELECT_OFF);
     private WToggleButton toggleTP = new WToggleButton(TOGGLE_ON, TOGGLE_OFF);
+    private WButton colorTP;
     private TPOverlay overlay;
 
     int y = 0;
@@ -53,7 +54,7 @@ public class TPGuiSection {
         });
 
         //Change Color
-        WButton colorTP = new WButton(getColor());
+        colorTP = new WButton(getColor());
         root.add(colorTP, 40, y, 70, 20);
         colorTP.setOnClick(() -> {
             overlay.updateColor();
@@ -106,5 +107,8 @@ public class TPGuiSection {
     public void toggleOff() {
         toggleTP.setToggle(false);
         overlay.setIsRendered(false);
+    }
+    public void updateColor() {
+        colorTP.setLabel(getColor());
     }
 }
