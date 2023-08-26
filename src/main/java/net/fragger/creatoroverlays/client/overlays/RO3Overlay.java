@@ -17,12 +17,12 @@ public class RO3Overlay extends StaticOverlay {
     @Override
     public void onHudRender(DrawContext drawContext, float tickDelta) {
         if (isRendered) {
-            if (color == 0) {
-                render(drawContext, RO3_Overlay);
-            } else if (color == 1) {
+            if (color == 1) {
                 render(drawContext, RO3_Overlay_White);
             } else if (color == 2) {
                 render(drawContext, RO3_Overlay_Red);
+            } else {
+                render(drawContext, RO3_Overlay);
             }
         }
     }

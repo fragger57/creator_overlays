@@ -25,17 +25,7 @@ public class GROverlay extends StaticOverlay {
 
     public void onHudRender(DrawContext drawContext, float tickDelta) {
         if (isRendered) {
-           if(color == 0){
-               if (rotation == 0) {
-                   render(drawContext, GR_Overlay);
-               } else if (rotation == 90) {
-                   render(drawContext, GR_Overlay_90);
-               } else if (rotation == 180) {
-                   render(drawContext, GR_Overlay_180);
-               } else {
-                   render(drawContext, GR_Overlay_270);
-               }
-           } else if (color == 1) {
+            if (color == 1) {
                if (rotation == 0) {
                    render(drawContext, GR_Overlay_White);
                } else if (rotation == 90) {
@@ -55,7 +45,17 @@ public class GROverlay extends StaticOverlay {
                } else {
                    render(drawContext, GR_Overlay_Red_270);
                }
-           }
+           } else {
+                if (rotation == 0) {
+                    render(drawContext, GR_Overlay);
+                } else if (rotation == 90) {
+                    render(drawContext, GR_Overlay_90);
+                } else if (rotation == 180) {
+                    render(drawContext, GR_Overlay_180);
+                } else {
+                    render(drawContext, GR_Overlay_270);
+                }
+            }
         }
     }
     public void updateRenderStatus() {
