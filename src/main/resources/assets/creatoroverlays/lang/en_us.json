@@ -7,10 +7,10 @@
   "key.creatoroverlays.co_color": "Cycle Overlay Colors",
   "key.creatoroverlays.co_rotateup":  "Cycle Overlay States Up",
   "key.creatoroverlays.co_rotatedown": "Cycle Overlays States Down",
-  "key.creatoroverlays.tp_up": "Move Tracking Point Up",
-  "key.creatoroverlays.tp_down": "Move Tracking Point Down",
-  "key.creatoroverlays.tp_right": "Move Tracking Point Right",
-  "key.creatoroverlays.tp_left": "Move Tracking Point Left",
+  "key.creatoroverlays.co_up": "Move Tracking Point Up",
+  "key.creatoroverlays.co_down": "Move Tracking Point Down",
+  "key.creatoroverlays.co_right": "Move Tracking Point Right",
+  "key.creatoroverlays.co_left": "Move Tracking Point Left",
   "key.creatoroverlays.co_modifier": "Modifier Key"
 
 }

@@ -27,10 +27,10 @@ public class KeyInputHandler {
     public static final String KEY_CO_COLOR = "key.creatoroverlays.co_color";
     public static final String KEY_CO_ROTATEUP = "key.creatoroverlays.co_rotateup";
     public static final String KEY_CO_ROTATEDOWN = "key.creatoroverlays.co_rotatedown";
-    public static final String KEY_TP_UP = "key.creatoroverlays.tp_up";
-    public static final String KEY_TP_DOWN = "key.creatoroverlays.tp_down";
-    public static final String KEY_TP_RIGHT = "key.creatoroverlays.tp_right";
-    public static final String KEY_TP_LEFT = "key.creatoroverlays.tp_left";
+    public static final String KEY_CO_UP = "key.creatoroverlays.co_up";
+    public static final String KEY_CO_DOWN = "key.creatoroverlays.co_down";
+    public static final String KEY_CO_RIGHT = "key.creatoroverlays.co_right";
+    public static final String KEY_CO_LEFT = "key.creatoroverlays.co_left";
     public static final String KEY_MODIFIER = "key.creatoroverlays.co_modifier";
 
     public static KeyBinding ro3displayKey;
@@ -40,10 +40,10 @@ public class KeyInputHandler {
     public static KeyBinding cocolorKey;
     public static KeyBinding corotateupKey;
     public static KeyBinding corotatedownKey;
-    public static KeyBinding tpupKey;
-    public static KeyBinding tpdownKey;
-    public static KeyBinding tprightKey;
-    public static KeyBinding tpleftKey;
+    public static KeyBinding coupKey;
+    public static KeyBinding codownKey;
+    public static KeyBinding corightKey;
+    public static KeyBinding coleftKey;
     public static KeyBinding modifierKey;
 
     public static RO3Overlay ro3Overlay = new RO3Overlay();
@@ -138,7 +138,7 @@ public class KeyInputHandler {
              * Tracking Point Movement Keys
              */
             //moves tp overlay up
-            if (tpupKey.isPressed()) {
+            if (coupKey.isPressed()) {
                 if (modifierKey.isPressed()) {
                     tpOverlay.moveUp();
                 } else {
@@ -146,7 +146,7 @@ public class KeyInputHandler {
                 }
             }
             //moves tp overlay down
-            if (tpdownKey.isPressed()) {
+            if (codownKey.isPressed()) {
                 if (modifierKey.isPressed()) {
                     tpOverlay.moveDown();
                 } else {
@@ -154,7 +154,7 @@ public class KeyInputHandler {
                 }
             }
             //moves tp overlay right
-            if (tprightKey.isPressed()) {
+            if (corightKey.isPressed()) {
                 if (modifierKey.isPressed()) {
                     tpOverlay.moveRight();
                 } else {
@@ -162,7 +162,7 @@ public class KeyInputHandler {
                 }
             }
             //moves tp overlay left
-            if (tpleftKey.isPressed()) {
+            if (coleftKey.isPressed()) {
                 if (modifierKey.isPressed()) {
                     tpOverlay.moveLeft();
                 } else {
@@ -227,26 +227,26 @@ public class KeyInputHandler {
                 GLFW.GLFW_KEY_LEFT_BRACKET,
                 KEY_CATEGORY_CREATOROVERLAYS
         ));
-        tpupKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-                KEY_TP_UP,
+        coupKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                KEY_CO_UP,
                 InputUtil.Type.KEYSYM,
                 GLFW.GLFW_KEY_UP,
                 KEY_CATEGORY_CREATOROVERLAYS
         ));
-        tpdownKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-                KEY_TP_DOWN,
+        codownKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                KEY_CO_DOWN,
                 InputUtil.Type.KEYSYM,
                 GLFW.GLFW_KEY_DOWN,
                 KEY_CATEGORY_CREATOROVERLAYS
         ));
-        tprightKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-                KEY_TP_RIGHT,
+        corightKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                KEY_CO_RIGHT,
                 InputUtil.Type.KEYSYM,
                 GLFW.GLFW_KEY_RIGHT,
                 KEY_CATEGORY_CREATOROVERLAYS
         ));
-        tpleftKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-                KEY_TP_LEFT,
+        coleftKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                KEY_CO_LEFT,
                 InputUtil.Type.KEYSYM,
                 GLFW.GLFW_KEY_LEFT,
                 KEY_CATEGORY_CREATOROVERLAYS
