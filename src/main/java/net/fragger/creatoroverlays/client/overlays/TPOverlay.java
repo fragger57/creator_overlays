@@ -1,11 +1,13 @@
 package net.fragger.creatoroverlays.client.overlays;
 
+import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
+import net.fragger.creatoroverlays.client.MoveableOverlay;
+import net.fragger.creatoroverlays.client.Overlay;
 import net.fragger.creatoroverlays.creatoroverlays;
-import net.fragger.creatoroverlays.util.MoveableOverlay;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.util.Identifier;
 
-public class TPOverlay extends MoveableOverlay {
+public class TPOverlay extends MoveableOverlay implements Overlay {
 
     private static final Identifier TP_Overlay = new Identifier(creatoroverlays.MOD_ID,"textures/overlays/tracking_point/tp_overlay.png");
     private static final Identifier TP_Overlay_White = new Identifier(creatoroverlays.MOD_ID,"textures/overlays/tracking_point/tp_overlay_white.png");
@@ -15,29 +17,39 @@ public class TPOverlay extends MoveableOverlay {
     @Override
     public void onHudRender(DrawContext drawContext, float tickDelta) {
         if(isRendered) {
-            if (mColor == 0) {
-                render(drawContext, TP_Overlay, x, y, width, height);
-            } else if (mColor == 1) {
-                render(drawContext, TP_Overlay_White, x, y, width, height);
-            } else if (mColor == 2) {
-                render(drawContext, TP_Overlay_Red, x, y, width, height);
-            } else if (mColor == 3) {
-                render(drawContext, TP_Overlay_Blue, x, y, width, height);
-            }
+                render(drawContext, getTexture(), x, y, width, height);
             if (isSelected) {
                 render(drawContext, TP_Overlay_Selected, x, y, width, height);
             }
         }
     }
-    public void initializeTPOverlay() {
+    public void initialize() {
         height = client.getWindow().getScaledHeight() / 17;
         width = height;
         reset();
+        isRendered = true;
+        invisible = false;
+        isSelected = true;
+        HudRenderCallback.EVENT.register(this);
     }
     public void updateRenderStatus() {
+        invisible = isRendered;
         isRendered = !isRendered;
-        renderStatus = !renderStatus;
         isSelected = true;
+    }
+
+    public Identifier getTexture() {
+        Identifier texture = TP_Overlay;
+        if (mColor == 0) {
+            texture = TP_Overlay;
+        } else if (mColor == 1) {
+            texture = TP_Overlay_White;
+        } else if (mColor == 2) {
+            texture = TP_Overlay_Red;
+        } else if (mColor == 3) {
+            texture = TP_Overlay_Blue;
+        }
+        return texture;
     }
     public void updateSelected() {
         isSelected = !isSelected;
@@ -45,11 +57,11 @@ public class TPOverlay extends MoveableOverlay {
     public boolean isRendered() {
         return isRendered;
     }
-    public void setIsRendered(boolean Rendered) {
+    public void setisRendered(boolean Rendered) {
         isRendered = Rendered;
     }
-    public boolean renderStatus() {
-        return renderStatus;
+    public boolean invisible() {
+        return invisible;
     }
     public boolean isSelected() {
         return isSelected;
@@ -63,8 +75,7 @@ public class TPOverlay extends MoveableOverlay {
     public void setColor(int color) {
         mColor = color;
     }
-
-    public void setRenderStatus(boolean status) {
-        renderStatus = status;
+    public void setInvisible(boolean status) {
+        invisible = status;
     }
 }

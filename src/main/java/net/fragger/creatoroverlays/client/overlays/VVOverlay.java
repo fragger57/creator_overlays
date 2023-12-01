@@ -1,16 +1,15 @@
 package net.fragger.creatoroverlays.client.overlays;
 
-import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
+import net.fragger.creatoroverlays.client.Overlay;
+import net.fragger.creatoroverlays.client.StaticOverlay;
 import net.fragger.creatoroverlays.creatoroverlays;
-import net.fragger.creatoroverlays.util.StaticOverlay;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.util.Identifier;
 
-import static net.fragger.creatoroverlays.event.KeyInputHandler.grOverlay;
-import static net.fragger.creatoroverlays.event.KeyInputHandler.ro3Overlay;
+import static net.fragger.creatoroverlays.event.KeyInputHandler.*;
 
-public class VVOverlay extends StaticOverlay implements HudRenderCallback {
+public class VVOverlay extends StaticOverlay implements Overlay {
     //blank vertical video
     private static final Identifier VV_Overlay = new Identifier(creatoroverlays.MOD_ID,"textures/overlays/vertical_video/vv_overlay.png");
     private static final Identifier VV_Overlay_White = new Identifier(creatoroverlays.MOD_ID,"textures/overlays/vertical_video/vv_overlay_white.png");
@@ -52,89 +51,106 @@ public class VVOverlay extends StaticOverlay implements HudRenderCallback {
             x = client.getWindow().getScaledWidth() / 2 - (width / 2);
         }
         if (isRendered) {
-            //renders vv overlay normally
-            if (!ro3Overlay.isRendered() & !grOverlay.isRendered()) {
-                if (color == 1) {
-                    render(drawContext, VV_Overlay_White, x, y, width, height);
-                } else if (color == 2){
-                    render(drawContext, VV_Overlay_Red, x, y, width, height);
-                } else {
-                    render(drawContext, VV_Overlay, x, y, width, height);
-                }
-            }
-            //renders vv overlay with ro3 overlay
-            if (isRO3VV) {
-                if (color == 1) {
-                    render(drawContext, VV_Overlay_White_RO3, x, y, width, height);
-                } else if (color == 2) {
-                    render(drawContext, VV_Overlay_Red_RO3, x, y, width, height);
-                } else {
-                    render(drawContext, VV_OVERLAY_RO3, x, y, width, height);
-                }
-            }
-            //renders vv overlay with gr overlay
-            if (isGRVV) {
-                if (color == 1) {
-                    if(rotation == 0) {
-                        render(drawContext, VV_OVERLAY_White_GR, x, y, width, height);
-                    } else if (rotation == 90) {
-                        render(drawContext, VV_OVERLAY_White_GR_90, x, y, width, height);
-                    } else if (rotation == 180) {
-                        render(drawContext, VV_OVERLAY_White_GR_180, x, y, width, height);
-                    } else if (rotation == 270) {
-                        render(drawContext, VV_OVERLAY_White_GR_270, x, y, width, height);
-                    }
-                } else if (color == 2) {
-                    if (rotation == 0) {
-                        render(drawContext, VV_OVERLAY_Red_GR, x, y, width, height);
-                    } else if (rotation == 90) {
-                        render(drawContext, VV_OVERLAY_Red_GR_90, x, y, width, height);
-                    } else if (rotation == 180) {
-                        render(drawContext, VV_OVERLAY_Red_GR_180, x, y, width, height);
-                    } else if (rotation == 270) {
-                        render(drawContext, VV_OVERLAY_Red_GR_270, x, y, width, height);
-                    }
-                } else {
-                    if(rotation == 0) {
-                        render(drawContext, VV_OVERLAY_GR, x, y, width, height);
-                    } else if (rotation == 90) {
-                        render(drawContext, VV_OVERLAY_GR_90, x, y, width, height);
-                    } else if (rotation == 180) {
-                        render(drawContext, VV_OVERLAY_GR_180, x, y, width, height);
-                    } else if (rotation == 270) {
-                        render(drawContext, VV_OVERLAY_GR_270, x, y, width, height);
-                    }
-                }
-            }
+            render(drawContext, getTexture(), x, y, width, height);
         }
     }
     public void updateRenderStatus() {
-        if (!isRendered) {
+        isRendered = !isRendered;
+        if (isRendered()) {
             if (ro3Overlay.isRendered()) {
                 ro3Overlay.setisRendered(false);
-                isRO3VV = true;
+                if (grOverlay.isRendered()) {
+                    grOverlay.setisRendered(false);
+                }
+                if (camOverlay.isRendered()) {
+                    camGUI.toggle();
+                }
+            } else {
+                if (isRO3VV) {
+                    ro3Overlay.setisRendered(true);
+                } else if (isGRVV) {
+                    grOverlay.setisRendered(true);
+                }
             }
-            if (grOverlay.isRendered()) {
-                grOverlay.setisRendered(false);
-                isGRVV = true;
-            }
-            isRendered = true;
-        } else {
-            if (isRO3VV) {
-                ro3Overlay.setisRendered(true);
-                isRO3VV = false;
-            }
-            if (isGRVV) {
-                grOverlay.setisRendered(true);
-                isGRVV = false;
-            }
-            isRendered = false;
         }
     }
+
+    public Identifier getTexture() {
+        Identifier texture = VV_Overlay;
+        //normal overlay
+        if (!ro3Overlay.isRendered() & !grOverlay.isRendered()) {
+            if (color == 1) {
+                texture = VV_Overlay_White;
+            } else if (color == 2){
+                texture = VV_Overlay_Red;
+            } else {
+                texture = VV_Overlay;
+            }
+        }
+
+        //ro3 overlay
+        if (isRO3VV) {
+            if (color == 1) {
+                texture = VV_Overlay_White_RO3;
+            } else if (color == 2) {
+                texture = VV_Overlay_Red_RO3;
+            } else {
+                texture = VV_OVERLAY_RO3;
+            }
+        }
+        //renders vv overlay with gr overlay
+        if (isGRVV) {
+            if (color == 1) {
+                if(grOverlay.getRotation() == 0) {
+                    texture = VV_OVERLAY_White_GR;
+                } else if (grOverlay.getRotation() == 90) {
+                    texture = VV_OVERLAY_White_GR_90;
+                } else if (grOverlay.getRotation() == 180) {
+                    texture = VV_OVERLAY_White_GR_180;
+                } else if (grOverlay.getRotation() == 270) {
+                    texture = VV_OVERLAY_White_GR_270;
+                }
+            } else if (color == 2) {
+                if (grOverlay.getRotation() == 0) {
+                    texture = VV_OVERLAY_Red_GR;
+                } else if (grOverlay.getRotation() == 90) {
+                    texture = VV_OVERLAY_Red_GR_90;
+                } else if (grOverlay.getRotation() == 180) {
+                    texture = VV_OVERLAY_Red_GR_180;
+                } else if (grOverlay.getRotation() == 270) {
+                    texture = VV_OVERLAY_Red_GR_270;
+                }
+            } else {
+                if(grOverlay.getRotation() == 0) {
+                    texture = VV_OVERLAY_GR;
+                } else if (grOverlay.getRotation() == 90) {
+                    texture = VV_OVERLAY_GR_90;
+                } else if (grOverlay.getRotation() == 180) {
+                    texture = VV_OVERLAY_GR_180;
+                } else if (grOverlay.getRotation() == 270) {
+                    texture = VV_OVERLAY_GR_270;
+                }
+            }
+        }
+        return texture;
+    }
+
     public boolean isRendered() {
         return isRendered;
     }
     public void setisRendered(boolean Rendered) {
         isRendered = Rendered;
+    }
+    public boolean getRO3VV(){
+        return isRO3VV;
+    }
+    public boolean getGRVV() {
+        return isGRVV;
+    }
+    public void setRO3VV(boolean state) {
+        isRO3VV = state;
+    }
+    public void setGRVV(boolean state) {
+        isGRVV = state;
     }
 }
