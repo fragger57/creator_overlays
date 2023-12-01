@@ -1,8 +1,8 @@
-package net.fragger.creatoroverlays.util;
+package net.fragger.creatoroverlays.client;
 
 import net.minecraft.client.MinecraftClient;
 
-public abstract class MoveableOverlay extends Overlay {
+public abstract class MoveableOverlay extends AbstractOverlay {
 
     public int mColor = 0;
 
@@ -10,7 +10,7 @@ public abstract class MoveableOverlay extends Overlay {
 
     public boolean isSelected = false;
     public boolean isRendered = false;
-    public boolean renderStatus = false;
+    public boolean invisible = true;
 
     public int x = 0;
     public int y = 0;

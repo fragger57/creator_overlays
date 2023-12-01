@@ -1,14 +1,16 @@
-package net.fragger.creatoroverlays.util;
+package net.fragger.creatoroverlays.client;
 
 import net.fragger.creatoroverlays.util.config.COConfigs;
 
-public abstract class StaticOverlay extends Overlay {
+public abstract class StaticOverlay extends AbstractOverlay {
 
-   public static int color = COConfigs.OVERLAY_COLOR;
-   public static int rotation = 0;
+   public int color = COConfigs.OVERLAY_COLOR;
+   public int rotation = 0;
+
+   public boolean state = true;
 
    //0 is black, 1 is white, and 2 is red
-   public static void colorCycle() {
+   public void colorCycle() {
        if (color == 1) {
            color = 2;
        } else if (color == 2) {
@@ -17,7 +19,8 @@ public abstract class StaticOverlay extends Overlay {
            color = 1;
        }
    }
-   public static void rotateUp() {
+
+   public void rotateUp() {
        if (rotation == 0) {
            rotation = 90;
        } else if (rotation == 90) {
@@ -28,7 +31,7 @@ public abstract class StaticOverlay extends Overlay {
            rotation = 0;
        }
    }
-   public static void rotateDown() {
+   public void rotateDown() {
        if (rotation == 180) {
            rotation = 90;
        } else if (rotation == 270) {
@@ -39,4 +42,12 @@ public abstract class StaticOverlay extends Overlay {
            rotation = 0;
        }
    }
+
+   public void swap() {
+       state = !state;
+   }
+
+   public int color(){
+        return color;
+    }
 }
