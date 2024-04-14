@@ -1,0 +1,41 @@
+{
+	"schemaVersion": 1,
+	"id": "creatoroverlays",
+	"version": "${version}",
+
+	"name": "Creator Overlays",
+	"description": "This mod adds a bunch of overlays to the in-game HUD to help creators with composition!",
+	"authors": [
+		"fragger57"
+	],
+	"contact": {
+		"homepage": "https://modrinth.com/mod/creatoroverlays",
+		"sources": "https://github.com/fragger57/creator_overlays"
+	},
+
+	"license": "MIT",
+	"icon": "assets/modid/icon.png",
+
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"net.fragger.creatoroverlays.creatoroverlays"
+		],
+		"client" : [
+			"net.fragger.creatoroverlays.creatoroverlaysClient"
+		]
+	},
+	"mixins": [
+		"creator-overlays.client.mixins.json"
+	],
+
+	"depends": {
+		"fabricloader": ">=0.14.0",
+		"fabric": "*",
+		"minecraft": ">=1.20",
+		"java": ">=17"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
