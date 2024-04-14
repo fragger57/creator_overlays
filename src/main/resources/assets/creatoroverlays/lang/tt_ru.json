@@ -1,0 +1,18 @@
+{
+  "modmenu.descriptionTranslation.creatoroverlays": "Бу мод композицияне оештыру белән контент ясаучыларга ярдәм итү өчен уендагы HUD-га капламнар өемен өсти!",
+  "modmenu.summaryTranslation.creatoroverlays": "Контент ясаучыларга ярдәм итү өчен капламнар өемен өсти!",
+  "key.category.creatoroverlays.creatoroverlays": "Creator Overlays",
+  "key.creatoroverlays.display_ro3overlay": "Өчтән өч өлеш кагыйдәсе капламын күчерү",
+  "key.creatoroverlays.display_groverlay": "Алтын киселеш капламын күчерү",
+  "key.creatoroverlays.display_vvoverlay": "Вертикаль видео капламын күчерү",
+  "key.creatoroverlays.display_tpoverlay": "Күзәтеп бару нокталары капламын күчерү",
+  "key.creatoroverlays.co_color": "Түгәрәк капламының төсләре",
+  "key.creatoroverlays.co_rotateup":  "Түгәрәк капламыныңны өскә бору",
+  "key.creatoroverlays.co_rotatedown": "Түгәрәк капламнарының аска бору",
+  "key.creatoroverlays.co_up": "Күзәтеп бару ноктасын өскә күчү",
+  "key.creatoroverlays.co_down": "Күзәтеп бару ноктасын аска күчү",
+  "key.creatoroverlays.co_right": "Күзәтеп бару ноктасын уңга күчү",
+  "key.creatoroverlays.co_left": "Күзәтеп бару ноктасын сулга күчү",
+  "key.creatoroverlays.co_modifier": "Үзгәртүче ачкычы"
+
+}

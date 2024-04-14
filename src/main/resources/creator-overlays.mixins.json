@@ -1,0 +1,11 @@
+{
+	"required": true,
+	"package": "net.fragger.mixin.client",
+	"compatibilityLevel": "JAVA_17",
+	"mixins": [
+		"ReplayListenerMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}
