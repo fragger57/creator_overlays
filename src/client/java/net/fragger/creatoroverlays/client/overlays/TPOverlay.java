@@ -1,21 +1,21 @@
 package net.fragger.creatoroverlays.client.overlays;
 
-import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fragger.creatoroverlays.client.MoveableOverlay;
 import net.fragger.creatoroverlays.client.Overlay;
 import net.fragger.creatoroverlays.creatoroverlays;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.util.Identifier;
 
 public class TPOverlay extends MoveableOverlay implements Overlay {
 
-    private static final Identifier TP_Overlay = new Identifier(creatoroverlays.MOD_ID,"textures/overlays/tracking_point/tp_overlay.png");
-    private static final Identifier TP_Overlay_White = new Identifier(creatoroverlays.MOD_ID,"textures/overlays/tracking_point/tp_overlay_white.png");
-    private static final Identifier TP_Overlay_Red = new Identifier(creatoroverlays.MOD_ID,"textures/overlays/tracking_point/tp_overlay_red.png");
-    private static final Identifier TP_Overlay_Blue = new Identifier(creatoroverlays.MOD_ID,"textures/overlays/tracking_point/tp_overlay_blue.png");
-    private static final Identifier TP_Overlay_Selected = new Identifier(creatoroverlays.MOD_ID,"textures/overlays/tracking_point/tp_overlay_selected.png");
+    private static final Identifier TP_Overlay = Identifier.of(creatoroverlays.MOD_ID,"textures/overlays/tracking_point/tp_overlay.png");
+    private static final Identifier TP_Overlay_White = Identifier.of(creatoroverlays.MOD_ID,"textures/overlays/tracking_point/tp_overlay_white.png");
+    private static final Identifier TP_Overlay_Red = Identifier.of(creatoroverlays.MOD_ID,"textures/overlays/tracking_point/tp_overlay_red.png");
+    private static final Identifier TP_Overlay_Blue = Identifier.of(creatoroverlays.MOD_ID,"textures/overlays/tracking_point/tp_overlay_blue.png");
+    private static final Identifier TP_Overlay_Selected = Identifier.of(creatoroverlays.MOD_ID,"textures/overlays/tracking_point/tp_overlay_selected.png");
     @Override
-    public void onHudRender(DrawContext drawContext, float tickDelta) {
+    public void onHudRender(DrawContext drawContext, RenderTickCounter tickDelta) {
         if(isRendered) {
                 render(drawContext, getTexture(), x, y, width, height);
             if (isSelected) {
@@ -30,7 +30,7 @@ public class TPOverlay extends MoveableOverlay implements Overlay {
         isRendered = true;
         invisible = false;
         isSelected = true;
-        HudRenderCallback.EVENT.register(this);
+        EVENT.register(this);
     }
     public void updateRenderStatus() {
         invisible = isRendered;

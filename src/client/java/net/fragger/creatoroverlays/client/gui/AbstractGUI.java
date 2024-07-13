@@ -8,7 +8,7 @@ import net.minecraft.util.Identifier;
 
 public abstract class AbstractGUI extends LightweightGuiDescription {
 
-    public static final Identifier OUTLINE = new Identifier(creatoroverlays.MOD_ID,"textures/widgets/overlay_outline.png");
+    public static final Identifier OUTLINE = Identifier.of(creatoroverlays.MOD_ID,"textures/widgets/overlay_outline.png");
 
     private static final Text black = Text.translatable("key.creatoroverlays.gui.color.black");
     private static final Text white = Text.translatable("key.creatoroverlays.gui.color.white");

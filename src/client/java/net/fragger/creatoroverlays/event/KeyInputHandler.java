@@ -6,11 +6,15 @@ import net.fragger.creatoroverlays.client.TPHandler;
 import net.fragger.creatoroverlays.client.gui.COScreen;
 import net.fragger.creatoroverlays.client.gui.RootGUI;
 import net.fragger.creatoroverlays.client.gui.overlayguis.*;
-import net.fragger.creatoroverlays.client.overlays.*;
+import net.fragger.creatoroverlays.client.overlays.CamOverlay;
+import net.fragger.creatoroverlays.client.overlays.CustomOverlay;
+import net.fragger.creatoroverlays.client.overlays.RO3Overlay;
+import net.fragger.creatoroverlays.client.overlays.VVOverlay;
 import net.fragger.creatoroverlays.util.config.COConfigs;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.option.KeyBinding;
+import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.client.util.InputUtil;
 import org.lwjgl.glfw.GLFW;
 
@@ -68,7 +72,7 @@ public class KeyInputHandler implements HudRenderCallback {
 
     //uses Hud Render Callback to check for keypresses, as to fix the issue with not being able to toggle overlays while Replay Mod recordings are paused
     //very unconventional, but it works lol
-    public void onHudRender(DrawContext drawContext, float tickDelta) {
+    public void onHudRender(DrawContext drawContext, RenderTickCounter tickDelta) {
         /*
          *
          * Toggle Keys
@@ -293,10 +297,10 @@ public class KeyInputHandler implements HudRenderCallback {
         ));
     }
     public void initialize(){
-        HudRenderCallback.EVENT.register(ro3Overlay);
-        HudRenderCallback.EVENT.register(vvOverlay);
-        HudRenderCallback.EVENT.register(camOverlay);
-        HudRenderCallback.EVENT.register(customOverlay);
-        HudRenderCallback.EVENT.register(this);
+        EVENT.register(ro3Overlay);
+        EVENT.register(vvOverlay);
+        EVENT.register(camOverlay);
+        EVENT.register(customOverlay);
+        EVENT.register(this);
     }
 }

@@ -2,23 +2,24 @@ package net.fragger.creatoroverlays.client.overlays;
 
 import com.mojang.datafixers.util.Pair;
 import net.fragger.creatoroverlays.client.Overlay;
-import net.fragger.creatoroverlays.client.StaticOverlay;
 import net.fragger.creatoroverlays.creatoroverlays;
 import net.fragger.creatoroverlays.util.config.COConfigs;
+import net.fragger.creatoroverlays.client.StaticOverlay;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.util.Identifier;
 
 public class CustomOverlay extends StaticOverlay implements Overlay {
 
-    private static Identifier Custom01 = new Identifier(creatoroverlays.MOD_ID,"textures/overlays/custom/custom01.png");
-    private static Identifier Custom02 = new Identifier(creatoroverlays.MOD_ID,"textures/overlays/custom/custom02.png");
-    private static Identifier Custom03 = new Identifier(creatoroverlays.MOD_ID,"textures/overlays/custom/custom03.png");
-    private static Identifier Custom04 = new Identifier(creatoroverlays.MOD_ID,"textures/overlays/custom/custom04.png");
+    private static Identifier Custom01 = Identifier.of(creatoroverlays.MOD_ID,"textures/overlays/custom/custom01.png");
+    private static Identifier Custom02 = Identifier.of(creatoroverlays.MOD_ID,"textures/overlays/custom/custom02.png");
+    private static Identifier Custom03 = Identifier.of(creatoroverlays.MOD_ID,"textures/overlays/custom/custom03.png");
+    private static Identifier Custom04 = Identifier.of(creatoroverlays.MOD_ID,"textures/overlays/custom/custom04.png");
 
     private boolean isRendered = false;
 
     @Override
-    public void onHudRender(DrawContext drawContext, float tickDelta) {
+    public void onHudRender(DrawContext drawContext, RenderTickCounter tickDelta) {
         if (isRendered) {
             render(drawContext, getTexture());
         }

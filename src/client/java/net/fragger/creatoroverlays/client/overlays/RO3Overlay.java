@@ -3,27 +3,28 @@ package net.fragger.creatoroverlays.client.overlays;
 import com.mojang.datafixers.util.Pair;
 
 import net.fragger.creatoroverlays.client.Overlay;
-import net.fragger.creatoroverlays.client.StaticOverlay;
 import net.fragger.creatoroverlays.creatoroverlays;
 import net.fragger.creatoroverlays.util.config.COConfigs;
+import net.fragger.creatoroverlays.client.StaticOverlay;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.util.Identifier;
 
 import static net.fragger.creatoroverlays.event.KeyInputHandler.*;
-import static net.fragger.creatoroverlays.util.config.COConfigs.DISPLAY_VV;
 
 public class RO3Overlay extends StaticOverlay implements Overlay {
-    private static final Identifier RO3_Overlay = new Identifier(creatoroverlays.MOD_ID,"textures/overlays/gridlines/ro3_overlay.png");
-    private static final Identifier RO3_Overlay_White = new Identifier(creatoroverlays.MOD_ID,"textures/overlays/gridlines/ro3_overlay_white.png");
-    private static final Identifier RO3_Overlay_Red = new Identifier(creatoroverlays.MOD_ID,"textures/overlays/gridlines/ro3_overlay_red.png");
-    private static final Identifier Quarter_Overlay = new Identifier(creatoroverlays.MOD_ID,"textures/overlays/gridlines/quarter_overlay.png");
-    private static final Identifier Quarter_Overlay_White = new Identifier(creatoroverlays.MOD_ID,"textures/overlays/gridlines/quarter_overlay_white.png");
-    private static final Identifier Quarter_Overlay_Red = new Identifier(creatoroverlays.MOD_ID,"textures/overlays/gridlines/quarter_overlay_red.png");
+
+    private static final Identifier RO3_Overlay = Identifier.of(creatoroverlays.MOD_ID,"textures/overlays/gridlines/ro3_overlay.png");
+    private static final Identifier RO3_Overlay_White = Identifier.of(creatoroverlays.MOD_ID,"textures/overlays/gridlines/ro3_overlay_white.png");
+    private static final Identifier RO3_Overlay_Red = Identifier.of(creatoroverlays.MOD_ID,"textures/overlays/gridlines/ro3_overlay_red.png");
+    private static final Identifier Quarter_Overlay = Identifier.of(creatoroverlays.MOD_ID,"textures/overlays/gridlines/quarter_overlay.png");
+    private static final Identifier Quarter_Overlay_White = Identifier.of(creatoroverlays.MOD_ID,"textures/overlays/gridlines/quarter_overlay_white.png");
+    private static final Identifier Quarter_Overlay_Red = Identifier.of(creatoroverlays.MOD_ID,"textures/overlays/gridlines/quarter_overlay_red.png");
 
     private static boolean isRendered = false;
 
     @Override
-    public void onHudRender(DrawContext drawContext, float tickDelta) {
+    public void onHudRender(DrawContext drawContext, RenderTickCounter tickDelta) {
         if (isRendered) {
             render(drawContext,getTexture());
         }
@@ -33,7 +34,7 @@ public class RO3Overlay extends StaticOverlay implements Overlay {
         if (isRendered) {
             vvGUI.gridlinesOn();
             COConfigs.updateConfig(new Pair<>("display.ro3", true));
-            if (DISPLAY_VV) {
+            if (COConfigs.DISPLAY_VV) {
                 COConfigs.updateConfig(new Pair<>("display.vv", false));
             }
         } else {

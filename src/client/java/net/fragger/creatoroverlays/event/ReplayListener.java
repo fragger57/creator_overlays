@@ -10,7 +10,6 @@ import com.replaymod.replay.events.ReplayOpenedCallback;
 import net.fragger.creatoroverlays.util.config.COConfigs;
 
 import static net.fragger.creatoroverlays.event.KeyInputHandler.*;
-import static net.fragger.creatoroverlays.util.config.COConfigs.*;
 
 public class ReplayListener extends EventRegistrations implements Module {
 
@@ -26,13 +25,13 @@ public class ReplayListener extends EventRegistrations implements Module {
         on(ReplayOpenedCallback.EVENT, replayHandler -> {
             inReplay = true;
             if (COConfigs.DISPLAY_MODE == 2) {
-                if (DISPLAY_RO3) {
-                    ro3GUI.toggle(DISPLAY_RO3);
+                if (COConfigs.DISPLAY_RO3) {
+                    ro3GUI.toggle(COConfigs.DISPLAY_RO3);
                 }
-                vvGUI.toggle(DISPLAY_VV);
-                camGUI.toggle(DISPLAY_CAM);
-                customGUI.toggle(DISPLAY_CUSTOM);
-                vvGUI.getOverlay().setRO3VV(DISPLAY_RO3VV);
+                vvGUI.toggle(COConfigs.DISPLAY_VV);
+                camGUI.toggle(COConfigs.DISPLAY_CAM);
+                customGUI.toggle(COConfigs.DISPLAY_CUSTOM);
+                vvGUI.getOverlay().setRO3VV(COConfigs.DISPLAY_RO3VV);
             }
         });
         on(ReplayClosingCallback.EVENT, replayHandler -> {

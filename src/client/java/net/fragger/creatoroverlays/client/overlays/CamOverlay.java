@@ -2,29 +2,29 @@ package net.fragger.creatoroverlays.client.overlays;
 
 import com.mojang.datafixers.util.Pair;
 import net.fragger.creatoroverlays.client.Overlay;
-import net.fragger.creatoroverlays.client.StaticOverlay;
 import net.fragger.creatoroverlays.creatoroverlays;
 import net.fragger.creatoroverlays.util.config.COConfigs;
+import net.fragger.creatoroverlays.client.StaticOverlay;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.util.Identifier;
 
 import static net.fragger.creatoroverlays.event.KeyInputHandler.vvGUI;
 import static net.fragger.creatoroverlays.event.KeyInputHandler.vvOverlay;
-import static net.fragger.creatoroverlays.util.config.COConfigs.*;
 
 public class CamOverlay extends StaticOverlay implements Overlay {
 
-    private static final Identifier FaceCamLeft = new Identifier(creatoroverlays.MOD_ID, "textures/overlays/face_cam/facecamleft.png");
-    private static final Identifier FaceCamRight = new Identifier(creatoroverlays.MOD_ID, "textures/overlays/face_cam/facecamright.png");
-    private static final Identifier FaceCamLeft_White = new Identifier(creatoroverlays.MOD_ID, "textures/overlays/face_cam/facecamleft_white.png");
-    private static final Identifier FaceCamRight_White = new Identifier(creatoroverlays.MOD_ID, "textures/overlays/face_cam/facecamright_white.png");
-    private static final Identifier FaceCamLeft_Red = new Identifier(creatoroverlays.MOD_ID, "textures/overlays/face_cam/facecamleft_red.png");
-    private static final Identifier FaceCamRight_Red = new Identifier(creatoroverlays.MOD_ID, "textures/overlays/face_cam/facecamright_red.png");
+    private static final Identifier FaceCamLeft = Identifier.of(creatoroverlays.MOD_ID, "textures/overlays/face_cam/facecamleft.png");
+    private static final Identifier FaceCamRight = Identifier.of(creatoroverlays.MOD_ID, "textures/overlays/face_cam/facecamright.png");
+    private static final Identifier FaceCamLeft_White = Identifier.of(creatoroverlays.MOD_ID, "textures/overlays/face_cam/facecamleft_white.png");
+    private static final Identifier FaceCamRight_White = Identifier.of(creatoroverlays.MOD_ID, "textures/overlays/face_cam/facecamright_white.png");
+    private static final Identifier FaceCamLeft_Red = Identifier.of(creatoroverlays.MOD_ID, "textures/overlays/face_cam/facecamleft_red.png");
+    private static final Identifier FaceCamRight_Red = Identifier.of(creatoroverlays.MOD_ID, "textures/overlays/face_cam/facecamright_red.png");
 
     private static boolean isRendered = false;
 
     @Override
-    public void onHudRender(DrawContext drawContext, float tickDelta) {
+    public void onHudRender(DrawContext drawContext, RenderTickCounter tickDelta) {
         if (isRendered) {
             render(drawContext, getTexture());
         }
@@ -68,11 +68,11 @@ public class CamOverlay extends StaticOverlay implements Overlay {
             if (vvOverlay.isRendered()) {
                 vvGUI.toggle();
             }
-            if (DISPLAY_VV) {
+            if (COConfigs.DISPLAY_VV) {
                 COConfigs.updateConfig(new Pair<>("display.vv", false));
             }
         }
-        if (!DISPLAY_RO3 && !DISPLAY_VV && !DISPLAY_CAM && !DISPLAY_CUSTOM) {
+        if (!COConfigs.DISPLAY_RO3 && !COConfigs.DISPLAY_VV && !COConfigs.DISPLAY_CAM && !COConfigs.DISPLAY_CUSTOM) {
             COConfigs.updateConfig(new Pair<>("display.ro3", true));
         }
     }

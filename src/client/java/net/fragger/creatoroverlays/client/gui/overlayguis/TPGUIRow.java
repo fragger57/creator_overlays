@@ -2,10 +2,10 @@ package net.fragger.creatoroverlays.client.gui.overlayguis;
 
 import io.github.cottonmc.cotton.gui.widget.*;
 import io.github.cottonmc.cotton.gui.widget.icon.TextureIcon;
+import net.fragger.creatoroverlays.client.gui.RootGUI;
 import net.fragger.creatoroverlays.client.overlays.TPOverlay;
 import net.minecraft.text.Text;
 
-import static net.fragger.creatoroverlays.client.gui.RootGUI.*;
 import static net.fragger.creatoroverlays.event.KeyInputHandler.tpGUI;
 import static net.fragger.creatoroverlays.event.KeyInputHandler.tpOverlay;
 
@@ -19,10 +19,10 @@ public class TPGUIRow {
 
     private TPOverlay overlay = new TPOverlay();
     private WLabel section;
-    private WToggleButton selectTP = new WToggleButton(SELECT_ON, SELECT_OFF);
-    private WToggleButton toggleTP = new WToggleButton(TOGGLE_ON, TOGGLE_OFF);
+    private WToggleButton selectTP = new WToggleButton(RootGUI.SELECT_ON, RootGUI.SELECT_OFF);
+    private WToggleButton toggleTP = new WToggleButton(RootGUI.TOGGLE_ON, RootGUI.TOGGLE_OFF);
     private WButton colorTP = new WButton(getColor());;
-    private WButton reset = new WButton(new TextureIcon(RESET));;
+    private WButton reset = new WButton(new TextureIcon(RootGUI.RESET));;
     private WButton remove = new WButton(Text.of("X"));;
     private WSprite texture;
     private WPlainPanel tpRow = new WPlainPanel();

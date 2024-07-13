@@ -3,12 +3,12 @@ package net.fragger.creatoroverlays.client.gui.overlayguis;
 import com.mojang.datafixers.util.Pair;
 import io.github.cottonmc.cotton.gui.widget.*;
 import io.github.cottonmc.cotton.gui.widget.data.HorizontalAlignment;
+import net.fragger.creatoroverlays.client.gui.RootGUI;
 import net.fragger.creatoroverlays.client.gui.AbstractGUI;
 import net.fragger.creatoroverlays.client.overlays.CustomOverlay;
 import net.fragger.creatoroverlays.util.config.COConfigs;
 import net.minecraft.text.Text;
 
-import static net.fragger.creatoroverlays.client.gui.RootGUI.*;
 import static net.fragger.creatoroverlays.event.KeyInputHandler.coScreen;
 import static net.fragger.creatoroverlays.util.config.COConfigs.CUSTOM_MODE;
 
@@ -28,13 +28,13 @@ public class CustomGUI extends AbstractGUI {
     public CustomGUI() {
         overlay.setRotation(CUSTOM_MODE);
 
-        customPanel.setSize(guiWidth, guiHeight);
+        customPanel.setSize(RootGUI.guiWidth, RootGUI.guiHeight);
 
         WLabel head = new WLabel(Text.translatable("key.creatoroverlays.gui.custom"));
         head.setHorizontalAlignment(HorizontalAlignment.CENTER);
         customPanel.add(head, 120, 10);
 
-        toggle = new WToggleButton(TOGGLE_ON, TOGGLE_OFF);
+        toggle = new WToggleButton(RootGUI.TOGGLE_ON, RootGUI.TOGGLE_OFF);
         customPanel.add(toggle, 10, y);
         toggle.setOnToggle(on -> {
             toggle();

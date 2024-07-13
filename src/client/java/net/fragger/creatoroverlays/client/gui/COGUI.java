@@ -9,13 +9,11 @@ import net.fragger.creatoroverlays.util.config.COConfigs;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
-import static net.fragger.creatoroverlays.client.gui.RootGUI.guiHeight;
-import static net.fragger.creatoroverlays.client.gui.RootGUI.guiWidth;
 import static net.fragger.creatoroverlays.event.KeyInputHandler.coScreen;
 
 public class COGUI extends AbstractGUI {
 
-    private static final Identifier NotesOutline = new Identifier(creatoroverlays.MOD_ID,"textures/widgets/config_outline.png");
+    private static final Identifier NotesOutline = Identifier.of(creatoroverlays.MOD_ID,"textures/widgets/config_outline.png");
 
     public WPlainPanel coPanel = new WPlainPanel();
     private WPlainPanel notes = new WPlainPanel();
@@ -28,7 +26,7 @@ public class COGUI extends AbstractGUI {
         updateColorMode();
         updateDisplayMode();
 
-        coPanel.setSize(guiWidth, guiHeight);
+        coPanel.setSize(RootGUI.guiWidth, RootGUI.guiHeight);
 
         //header section
         WLabel head = new WLabel(Text.translatable("key.creatoroverlays.gui.creatoroverlays"));
@@ -37,7 +35,7 @@ public class COGUI extends AbstractGUI {
 
         WLabel version = new WLabel(Text.literal("Version: 3.1.0"));
         coPanel.add(version, 10, 30);
-        WLabel release = new WLabel(Text.literal("Released: " + "April 2024"));
+        WLabel release = new WLabel(Text.literal("Released: " + "July 2024"));
         coPanel.add(release, 10, 40);
 
         WLabel config = new WLabel(Text.translatable("key.creatoroverlays.gui.default"));

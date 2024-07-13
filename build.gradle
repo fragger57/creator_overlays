@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '1.5-SNAPSHOT'
+	id 'fabric-loom' version '1.6-SNAPSHOT'
 	id 'maven-publish'
 	id 'com.modrinth.minotaur' version "${minotaur_version}"
 }
@@ -25,13 +25,6 @@ repositories {
 loom {
 	splitEnvironmentSourceSets()
 
-	mods {
-		"replay-utilities" {
-			sourceSet sourceSets.main
-			sourceSet sourceSets.client
-		}
-	}
-
 }
 
 dependencies {
@@ -54,14 +47,14 @@ processResources {
 }
 
 tasks.withType(JavaCompile).configureEach {
-	it.options.release = 17
+	it.options.release = 21
 }
 
 java {
 	withSourcesJar()
 
-	sourceCompatibility = JavaVersion.VERSION_17
-	targetCompatibility = JavaVersion.VERSION_17
+	sourceCompatibility = JavaVersion.VERSION_21
+	targetCompatibility = JavaVersion.VERSION_21
 }
 
 jar {

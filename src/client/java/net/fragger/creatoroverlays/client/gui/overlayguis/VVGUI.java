@@ -5,21 +5,21 @@ import io.github.cottonmc.cotton.gui.widget.*;
 import io.github.cottonmc.cotton.gui.widget.data.HorizontalAlignment;
 import net.fragger.creatoroverlays.client.gui.AbstractGUI;
 import net.fragger.creatoroverlays.client.gui.OverlayGUI;
+import net.fragger.creatoroverlays.client.gui.RootGUI;
 import net.fragger.creatoroverlays.client.overlays.VVOverlay;
 import net.fragger.creatoroverlays.creatoroverlays;
 import net.fragger.creatoroverlays.util.config.COConfigs;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
-import static net.fragger.creatoroverlays.client.gui.RootGUI.*;
 import static net.fragger.creatoroverlays.event.KeyInputHandler.*;
 import static net.fragger.creatoroverlays.util.config.COConfigs.COLOR_MODE;
 import static net.fragger.creatoroverlays.util.config.COConfigs.VV_COLOR;
 
 public class VVGUI extends AbstractGUI implements OverlayGUI {
 
-    public static final Identifier Gridlines_ON = new Identifier(creatoroverlays.MOD_ID,"textures/widgets/gridlines_on.png");
-    public static final Identifier Gridlines_OFF = new Identifier(creatoroverlays.MOD_ID,"textures/widgets/gridlines_off.png");
+    public static final Identifier Gridlines_ON = Identifier.of(creatoroverlays.MOD_ID,"textures/widgets/gridlines_on.png");
+    public static final Identifier Gridlines_OFF = Identifier.of(creatoroverlays.MOD_ID,"textures/widgets/gridlines_off.png");
 
     public WPlainPanel vvPanel = new WPlainPanel();
     private WToggleButton toggle;
@@ -35,13 +35,13 @@ public class VVGUI extends AbstractGUI implements OverlayGUI {
             overlay.setColor(VV_COLOR);
         }
 
-        vvPanel.setSize(guiWidth, guiHeight);
+        vvPanel.setSize(RootGUI.guiWidth, RootGUI.guiHeight);
 
         WLabel head = new WLabel(Text.translatable("key.creatoroverlays.gui.verticalvideo"));
         head.setHorizontalAlignment(HorizontalAlignment.CENTER);
         vvPanel.add(head, 120, 10);
 
-        toggle = new WToggleButton(TOGGLE_ON, TOGGLE_OFF);
+        toggle = new WToggleButton(RootGUI.TOGGLE_ON, RootGUI.TOGGLE_OFF);
         vvPanel.add(toggle, 10, y);
         toggle.setOnToggle(on -> {
             toggle();

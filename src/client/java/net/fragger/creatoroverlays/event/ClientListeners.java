@@ -4,23 +4,18 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fragger.creatoroverlays.util.config.COConfigs;
 
-import static net.fragger.creatoroverlays.event.KeyInputHandler.*;
-import static net.fragger.creatoroverlays.event.KeyInputHandler.customGUI;
-import static net.fragger.creatoroverlays.util.config.COConfigs.*;
-import static net.fragger.creatoroverlays.util.config.COConfigs.DISPLAY_CUSTOM;
-
 public class ClientListeners {
 
     public static void listen() {
         ClientPlayConnectionEvents.JOIN.register ((handler, sender, client) -> {
             if (COConfigs.DISPLAY_MODE == 1) {
-                if (DISPLAY_RO3) {
-                    ro3GUI.toggle(DISPLAY_RO3);
+                if (COConfigs.DISPLAY_RO3) {
+                    KeyInputHandler.ro3GUI.toggle(COConfigs.DISPLAY_RO3);
                 }
-                vvGUI.toggle(DISPLAY_VV);
-                camGUI.toggle(DISPLAY_CAM);
-                customGUI.toggle(DISPLAY_CUSTOM);
-                vvGUI.getOverlay().setRO3VV(DISPLAY_RO3VV);
+                KeyInputHandler.vvGUI.toggle(COConfigs.DISPLAY_VV);
+                KeyInputHandler.camGUI.toggle(COConfigs.DISPLAY_CAM);
+                KeyInputHandler.customGUI.toggle(COConfigs.DISPLAY_CUSTOM);
+                KeyInputHandler.vvGUI.getOverlay().setRO3VV(COConfigs.DISPLAY_RO3VV);
             }
         });
 

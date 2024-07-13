@@ -4,29 +4,28 @@ import io.github.cottonmc.cotton.gui.widget.*;
 import io.github.cottonmc.cotton.gui.widget.data.HorizontalAlignment;
 import io.github.cottonmc.cotton.gui.widget.icon.TextureIcon;
 import net.fabricmc.fabric.api.util.TriState;
+import net.fragger.creatoroverlays.client.TPHandler;
+import net.fragger.creatoroverlays.client.gui.RootGUI;
 import net.fragger.creatoroverlays.creatoroverlays;
 import net.fragger.creatoroverlays.util.config.COConfigs;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
-import static net.fragger.creatoroverlays.client.TPHandler.tpArraySize;
-import static net.fragger.creatoroverlays.client.TPHandler.tpGUIRows;
-import static net.fragger.creatoroverlays.client.gui.RootGUI.*;
 import static net.fragger.creatoroverlays.event.KeyInputHandler.coScreen;
 import static net.fragger.creatoroverlays.event.KeyInputHandler.tpOverlay;
 
 public class TPGUI extends WPlainPanel {
 
-    public static final Identifier OUTLINE = new Identifier(creatoroverlays.MOD_ID,"textures/widgets/tp_outline.png");
+    public static final Identifier OUTLINE = Identifier.of(creatoroverlays.MOD_ID,"textures/widgets/tp_outline.png");
 
-    public static final Identifier MULTIPOINT_BLACK = new Identifier(creatoroverlays.MOD_ID,"textures/widgets/multi_point_black.png");
-    public static final Identifier MULTIPOINT_WHITE = new Identifier(creatoroverlays.MOD_ID,"textures/widgets/multi_point_white.png");
-    public static final Identifier MULTIPOINT_RED = new Identifier(creatoroverlays.MOD_ID,"textures/widgets/multi_point_red.png");
-    public static final Identifier MULTIPOINT_BLUE = new Identifier(creatoroverlays.MOD_ID,"textures/widgets/multi_point_blue.png");
+    public static final Identifier MULTIPOINT_BLACK = Identifier.of(creatoroverlays.MOD_ID,"textures/widgets/multi_point_black.png");
+    public static final Identifier MULTIPOINT_WHITE = Identifier.of(creatoroverlays.MOD_ID,"textures/widgets/multi_point_white.png");
+    public static final Identifier MULTIPOINT_RED = Identifier.of(creatoroverlays.MOD_ID,"textures/widgets/multi_point_red.png");
+    public static final Identifier MULTIPOINT_BLUE = Identifier.of(creatoroverlays.MOD_ID,"textures/widgets/multi_point_blue.png");
 
     public static WPlainPanel tpPanel = new WPlainPanel();
 
-    public static WToggleButton toggleAll = new WToggleButton(TOGGLE_ON, TOGGLE_OFF);
+    public static WToggleButton toggleAll = new WToggleButton(RootGUI.TOGGLE_ON, RootGUI.TOGGLE_OFF);
     public static WButton multiSelection;
 
     private static WSprite outline = new WSprite(OUTLINE);
@@ -39,7 +38,7 @@ public class TPGUI extends WPlainPanel {
 
     public TPGUI() {
 
-        tpPanel.setSize(guiWidth, guiHeight);
+        tpPanel.setSize(RootGUI.guiWidth, RootGUI.guiHeight);
 
 
 
@@ -83,9 +82,9 @@ public class TPGUI extends WPlainPanel {
 
     public void addRow(int i) {
         TPGUIRow newRow = new TPGUIRow(Text.of("Tracking Point " + (i + 1)));
-        pointPanel.setSize(220, tpGUIRows.size() * 35);
+        pointPanel.setSize(220, TPHandler.tpGUIRows.size() * 35);
         pointPanel.add(newRow.rowPanel(), 0, ((i + 1) * 35) - 25);
-        tpGUIRows.add(newRow);
+        TPHandler.tpGUIRows.add(newRow);
         tpPanel.remove(scrollPanel);
         scrollPanel = new WScrollPanel(pointPanel);
         scrollPanel.setScrollingVertically(TriState.TRUE);
@@ -93,22 +92,22 @@ public class TPGUI extends WPlainPanel {
     }
 
     public void removeRow(TPGUIRow row) {
-        for (TPGUIRow tpGUIRow : tpGUIRows) {
+        for (TPGUIRow tpGUIRow : TPHandler.tpGUIRows) {
             pointPanel.remove(tpGUIRow.rowPanel());
         }
-        tpGUIRows.remove(row);
+        TPHandler.tpGUIRows.remove(row);
         row.getTP().setisRendered(false);
         tpOverlay.updateArray();
         tpPanel.remove(scrollPanel);
 
-        for (int i = 0; i < tpGUIRows.size(); i++) {
-            pointPanel.add(tpGUIRows.get(i).rowPanel(), 0, ((i + 1) * 35) - 25);
+        for (int i = 0; i < TPHandler.tpGUIRows.size(); i++) {
+            pointPanel.add(TPHandler.tpGUIRows.get(i).rowPanel(), 0, ((i + 1) * 35) - 25);
         }
-        pointPanel.setSize(220, tpGUIRows.size() * 35);
+        pointPanel.setSize(220, TPHandler.tpGUIRows.size() * 35);
         scrollPanel = new WScrollPanel(pointPanel);
         scrollPanel.setScrollingVertically(TriState.TRUE);
         tpPanel.add(scrollPanel, 10, 40, 230, 150);
-        if(tpArraySize <= 0) {
+        if(TPHandler.tpArraySize <= 0) {
             tpOverlay.toggleAllOff();
         }
     }

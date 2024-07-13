@@ -3,13 +3,13 @@ package net.fragger.creatoroverlays.client.gui.overlayguis;
 import com.mojang.datafixers.util.Pair;
 import io.github.cottonmc.cotton.gui.widget.*;
 import io.github.cottonmc.cotton.gui.widget.data.HorizontalAlignment;
-import net.fragger.creatoroverlays.client.gui.AbstractGUI;
 import net.fragger.creatoroverlays.client.gui.OverlayGUI;
+import net.fragger.creatoroverlays.client.gui.RootGUI;
+import net.fragger.creatoroverlays.client.gui.AbstractGUI;
 import net.fragger.creatoroverlays.client.overlays.CamOverlay;
 import net.fragger.creatoroverlays.util.config.COConfigs;
 import net.minecraft.text.Text;
 
-import static net.fragger.creatoroverlays.client.gui.RootGUI.*;
 import static net.fragger.creatoroverlays.event.KeyInputHandler.coScreen;
 import static net.fragger.creatoroverlays.util.config.COConfigs.*;
 
@@ -29,13 +29,13 @@ public class CAMGUI extends AbstractGUI implements OverlayGUI {
             overlay.setColor(CAM_COLOR);
         }
 
-        camPanel.setSize(guiWidth, guiHeight);
+        camPanel.setSize(RootGUI.guiWidth, RootGUI.guiHeight);
 
         WLabel head = new WLabel(Text.translatable("key.creatoroverlays.gui.cam"));
         head.setHorizontalAlignment(HorizontalAlignment.CENTER);
         camPanel.add(head, 120, 10);
 
-        toggle = new WToggleButton(TOGGLE_ON, TOGGLE_OFF);
+        toggle = new WToggleButton(RootGUI.TOGGLE_ON, RootGUI.TOGGLE_OFF);
         camPanel.add(toggle, 10, y);
         toggle.setOnToggle(on -> {
             toggle();
