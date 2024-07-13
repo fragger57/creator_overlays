@@ -39,6 +39,6 @@
   "key.creatoroverlays.gui.default.previous": "Color Mode: Use Previous",
   "key.creatoroverlays.gui.default.default": "Color Mode: Use Default",
   "key.creatoroverlays.gui.default.on": "Display: On World Join",
-  "key.creatoroverlays.gui.default.off": "Display: Off World Join",
+  "key.creatoroverlays.gui.default.off": "Display: Normal",
   "key.creatoroverlays.gui.default.replay": "Display: On Replay Join"
 }
