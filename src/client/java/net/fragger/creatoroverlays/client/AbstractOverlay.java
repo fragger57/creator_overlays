@@ -3,6 +3,7 @@ package net.fragger.creatoroverlays.client;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.util.Identifier;
 
 public abstract class AbstractOverlay implements HudRenderCallback {
@@ -21,7 +22,8 @@ public abstract class AbstractOverlay implements HudRenderCallback {
 
     //Renders Overlay based off specified x and y, as well as width and height. Requires Draw Context, Reference to texture, x and y position, and texture width and height
     public static void render(DrawContext drawContext, Identifier texture, int x, int y, int width, int height) {
-        drawContext.drawTexture(texture, x, y, 0, 0, width, height, width, height);
+        drawContext.drawTexture(RenderLayer::getGuiTexturedOverlay, texture, x, y, 0, 0, width, height, width, height);
+
     }
 
 }
